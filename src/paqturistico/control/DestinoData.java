@@ -5,10 +5,54 @@
  */
 package paqturistico.control;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
+
 /**
  *
  * @author daniel
  */
 public class DestinoData {
+    private Connection con;
+
+    public DestinoData(Conexion conexion) {
+        try {
+            this.con = conexion.getConexion();
+            System.out.println("Conectado");
+        } catch (SQLException ex) {
+            System.out.println("Error en la conexión");
+        }
+    }
     
+    public void guardarDestino(Destino dest) {
+        String sql = "INSERT INTO destino(nombre, pais) VALUES (?,?)";
+
+        try {
+            try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {  //Prepara la sentencia para SQL
+                ps.setString(1, dest.getNombre());
+                ps.setString(2, dest.getPais());
+                
+                
+
+                ps.executeUpdate(); //NO PONER PARAMETROS
+                ResultSet rs = ps.getGeneratedKeys(); //Recupero el ID (idCliente)
+                if (rs.next()) {
+                    System.out.println("Destino " + dest.getNombre() + ", cargado correctamente.");
+                    
+                    dest.setIdDestino(rs.getInt("idDestino"));
+                    System.out.println("id del destino: " + dest.getIdDestino());
+                    
+                }
+                
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar destino\n" + ex);
+        }
+    }
 }
