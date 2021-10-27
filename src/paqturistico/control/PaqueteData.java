@@ -35,12 +35,12 @@ public class PaqueteData {
 
         try {
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {  //Prepara la sentencia para SQL
-                ps.setInt(1, paq.getIdCliente());
-                ps.setInt(2, paq.getIdAlojamiento());
-                ps.setInt(3, paq.getIdMenu());
+                ps.setInt(1, paq.getIdCliente().getIdCliente());
+                ps.setInt(2, paq.getIdAlojamiento().getIdAlojamiento());
+                ps.setInt(3, paq.getIdMenu().getIdMenu());
                 ps.setDate(4, Date.valueOf(paq.getFechaDesde()));
                 ps.setDate(5, Date.valueOf(paq.getFechaHasta()));
-                ps.setInt(6, paq.getIdTransporte());
+                ps.setInt(6, paq.getIdTransporte().getIdTransporte());
                 ps.setInt(7, paq.getPrecioFinal());
                 ps.setInt(8, paq.getCantidadPersonas());
                 ps.setBoolean(9, paq.isActivo());

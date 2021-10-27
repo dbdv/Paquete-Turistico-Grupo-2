@@ -35,7 +35,7 @@ public class TransporteData {
         try {
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {  //Prepara la sentencia para SQL
                 ps.setString(1, t.getTipo());
-                ps.setInt(1, t.getPrecio());
+                ps.setInt(2, t.getPrecio());
                 ps.setInt(3, t.getIdDestino());
                 ps.setBoolean(4, t.isActivo());
                 

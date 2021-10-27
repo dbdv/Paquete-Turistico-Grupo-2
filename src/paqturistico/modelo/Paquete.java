@@ -12,18 +12,19 @@ import java.time.LocalDate;
  * @author daniel
  */
 public class Paquete {
+
     private int idPaquete;
-    private int idCliente;
-    private int idAlojamiento;
-    private int idMenu;
-    private int idTransporte;
+    private Cliente idCliente;
+    private Alojamiento idAlojamiento;
+    private Menu idMenu;
+    private Transporte idTransporte;
     LocalDate fechaDesde;
     LocalDate fechaHasta;
     private int precioFinal;
     private int cantidadPersonas;
     private boolean activo;
 
-    public Paquete(int idPaquete, int idCliente, int idAlojamiento, int idMenu, int idTransporte, LocalDate fechaDesde, LocalDate fechaHasta, int precioFinal, int cantidadPersonas, boolean activo) {
+    public Paquete(int idPaquete, Cliente idCliente, Alojamiento idAlojamiento, Menu idMenu, Transporte idTransporte, LocalDate fechaDesde, LocalDate fechaHasta, int precioFinal, int cantidadPersonas, boolean activo) {
         this.idPaquete = idPaquete;
         this.idCliente = idCliente;
         this.idAlojamiento = idAlojamiento;
@@ -36,7 +37,7 @@ public class Paquete {
         this.activo = activo;
     }
 
-    public Paquete(int idCliente, int idAlojamiento, int idMenu, int idTransporte, LocalDate fechaDesde, LocalDate fechaHasta, int precioFinal, int cantidadPersonas, boolean activo) {
+    public Paquete(Cliente idCliente, Alojamiento idAlojamiento, Menu idMenu, Transporte idTransporte, LocalDate fechaDesde, LocalDate fechaHasta, int precioFinal, int cantidadPersonas, boolean activo) {
         this.idCliente = idCliente;
         this.idAlojamiento = idAlojamiento;
         this.idMenu = idMenu;
@@ -47,8 +48,26 @@ public class Paquete {
         this.cantidadPersonas = cantidadPersonas;
         this.activo = activo;
     }
-    
-    public Paquete(){
+
+    public Paquete() {
+    }
+
+    public int calcularPrecioFinal() {
+        int pFinal = 0;
+        pFinal += idTransporte.getPrecio();
+        pFinal += idAlojamiento.getPrecio();
+        pFinal += idMenu.getPrecio();
+        if (fechaDesde.getMonthValue() == 1 || fechaDesde.getMonthValue() == 7) {
+            //CASO TEMPORADA ALTA
+            pFinal *= 1.3;
+        } else {
+            if (fechaDesde.getMonthValue() == 2 || fechaDesde.getMonthValue() == 6) {
+                //TEMPORADA MEDIA
+                pFinal *= 1.15;
+            }
+            
+        }
+        return pFinal;
     }
 
     public int getIdPaquete() {
@@ -59,35 +78,35 @@ public class Paquete {
         this.idPaquete = idPaquete;
     }
 
-    public int getIdCliente() {
+    public Cliente getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(Cliente idCliente) {
         this.idCliente = idCliente;
     }
 
-    public int getIdAlojamiento() {
+    public Alojamiento getIdAlojamiento() {
         return idAlojamiento;
     }
 
-    public void setIdAlojamiento(int idAlojamiento) {
+    public void setIdAlojamiento(Alojamiento idAlojamiento) {
         this.idAlojamiento = idAlojamiento;
     }
 
-    public int getIdMenu() {
+    public Menu getIdMenu() {
         return idMenu;
     }
 
-    public void setIdMenu(int idMenu) {
+    public void setIdMenu(Menu idMenu) {
         this.idMenu = idMenu;
     }
 
-    public int getIdTransporte() {
+    public Transporte getIdTransporte() {
         return idTransporte;
     }
 
-    public void setIdTransporte(int idTransporte) {
+    public void setIdTransporte(Transporte idTransporte) {
         this.idTransporte = idTransporte;
     }
 
@@ -135,6 +154,5 @@ public class Paquete {
     public String toString() {
         return "Paquete{" + "idPaquete=" + idPaquete + ", idCliente=" + idCliente + ", idAlojamiento=" + idAlojamiento + ", idMenu=" + idMenu + ", idTransporte=" + idTransporte + ", fechaDesde=" + fechaDesde + ", fechaHasta=" + fechaHasta + ", precioFinal=" + precioFinal + ", cantidadPersonas=" + cantidadPersonas + ", activo=" + activo + '}';
     }
-    
-    
+
 }
