@@ -57,5 +57,21 @@ public class AlojamientoData {
             System.out.println("Error al insertar alojamiento\n" + ex);
         }
     }
+    
+    public void borrarAlojamiento(int id){
+        String sql = "UPDATE alojamiento SET activo = 0 WHERE idAlojamiento = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("Error al borrar\n"+sqlE);
+        }
+    }
 
 }

@@ -55,4 +55,21 @@ public class ClienteData {
             System.out.println("Error al insertar cliente\n" + ex);
         }
     }
+    
+    public void borrarCliente(int id){
+        String sql = "UPDATE cliente SET activo = 0 WHERE idCliente = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("Error al borrar\n"+sqlE);
+        }
+    }
+
 }

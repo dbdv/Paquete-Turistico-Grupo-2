@@ -57,4 +57,21 @@ public class MenuData {
             System.out.println("Error al insertar menu\n" + ex);
         }
     }
+    
+    public void borrarMenu(int id){
+        String sql = "UPDATE menu SET activo = 0 WHERE idMenu = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("Error al borrar\n"+sqlE);
+        }
+    }
+
 }

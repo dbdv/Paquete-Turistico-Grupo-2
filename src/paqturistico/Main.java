@@ -7,6 +7,12 @@ package paqturistico;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import paqturistico.control.AlojamientoData;
+import paqturistico.control.ClienteData;
+import paqturistico.control.DestinoData;
+import paqturistico.control.MenuData;
+import paqturistico.control.PaqueteData;
+import paqturistico.control.TransporteData;
 import paqturistico.modelo.Conexion;
 
 /**
@@ -19,12 +25,29 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         try {
-            // TODO code application logic here
-            Conexion con = new Conexion();
+            
+            Conexion con = new Conexion();            
+            ClienteData cd = new ClienteData(con);
+            AlojamientoData ad = new AlojamientoData(con);
+            DestinoData dd = new DestinoData(con);
+            MenuData md = new MenuData(con);
+            TransporteData td = new TransporteData(con);
+            PaqueteData pd = new PaqueteData(con);
+            
+            ad.borrarAlojamiento(1);
+            cd.borrarCliente(1);
+            dd.eliminarDestino(1);
+            md.borrarMenu(1);
+            pd.borrarPaquete(1);
+            td.borrarTransporte(1);
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }
     
 }

@@ -62,4 +62,21 @@ public class PaqueteData {
             System.out.println("Error al insertar paquete\n" + ex);
         }
     }
+    
+    public void borrarPaquete(int id){
+        String sql = "UPDATE paquete SET activo = 0 WHERE idPaquete = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("Error al borrar\n"+sqlE);
+        }
+    }
+
 }

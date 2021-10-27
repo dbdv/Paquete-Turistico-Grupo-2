@@ -55,4 +55,39 @@ public class DestinoData {
             System.out.println("Error al insertar destino\n" + ex);
         }
     }
+    
+    //BORRADO LOGICO, habría que agregar un atributo activo
+    public void borrarDestino(int id){
+        String sql = "UPDATE destino SET activo = 0 WHERE idDestino = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("Error al borrar\n"+sqlE);
+        }
+    }
+    
+    //borradoFisico
+    public void eliminarDestino(int id){
+        String sql = "DELETE FROM destino WHERE idDestino = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ps.execute();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("Error al borrar\n"+sqlE);
+        }
+    }
+
 }

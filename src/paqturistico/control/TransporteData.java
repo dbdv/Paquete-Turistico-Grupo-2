@@ -57,4 +57,21 @@ public class TransporteData {
             System.out.println("Error al insertar transporte\n" + ex);
         }
     }
+    
+    public void borrarTransporte(int id){
+        String sql = "UPDATE transporte SET activo = 0 WHERE idTransporte = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("Error al borrar\n"+sqlE);
+        }
+    }
+
 }
