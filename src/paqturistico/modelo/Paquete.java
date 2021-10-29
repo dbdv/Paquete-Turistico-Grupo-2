@@ -6,6 +6,7 @@
 package paqturistico.modelo;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -37,14 +38,13 @@ public class Paquete {
         this.activo = activo;
     }
 
-    public Paquete(Cliente idCliente, Alojamiento idAlojamiento, Menu idMenu, Transporte idTransporte, LocalDate fechaDesde, LocalDate fechaHasta, int precioFinal, int cantidadPersonas, boolean activo) {
+    public Paquete(Cliente idCliente, Alojamiento idAlojamiento, Menu idMenu, Transporte idTransporte, LocalDate fechaDesde, LocalDate fechaHasta, int cantidadPersonas, boolean activo) {
         this.idCliente = idCliente;
         this.idAlojamiento = idAlojamiento;
         this.idMenu = idMenu;
         this.idTransporte = idTransporte;
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
-        this.precioFinal = precioFinal;
         this.cantidadPersonas = cantidadPersonas;
         this.activo = activo;
     }
@@ -54,17 +54,21 @@ public class Paquete {
 
     public int calcularPrecioFinal() {
         int pFinal = 0;
-        pFinal += idTransporte.getPrecio();
+        long totalDias= ChronoUnit.DAYS.between(fechaDesde, fechaHasta);
+       
         pFinal += idAlojamiento.getPrecio();
         pFinal += idMenu.getPrecio();
+        pFinal*=totalDias;
+        pFinal*=cantidadPersonas;
+         pFinal += (idTransporte.getPrecio()*cantidadPersonas);
         if (fechaDesde.getMonthValue() == 1 || fechaDesde.getMonthValue() == 7) {
             //CASO TEMPORADA ALTA
             pFinal *= 1.3;
         } else {
-            if (fechaDesde.getMonthValue() == 2 || fechaDesde.getMonthValue() == 6) {
+            
                 //TEMPORADA MEDIA
                 pFinal *= 1.15;
-            }
+            
             
         }
         return pFinal;
@@ -126,8 +130,12 @@ public class Paquete {
         this.fechaHasta = fechaHasta;
     }
 
-    public int getPrecioFinal() {
+    public int getPrecioFinal() { // agrego el calculo de precio final
+        if (precioFinal!=0){
         return precioFinal;
+    } else {
+            return calcularPrecioFinal();
+        } 
     }
 
     public void setPrecioFinal(int precioFinal) {
