@@ -52,7 +52,7 @@ public class TestBelen {
             
             Paquete p1= new Paquete(c1,a1,m1,t1,LocalDate.of(2022, Month.JANUARY, 20), LocalDate.of(2022, Month.JANUARY, 30), 2, true);
             Paquete p2= new Paquete(c1,a1,m1,t1,LocalDate.of(2022, Month.DECEMBER, 20), LocalDate.of(2022, Month.DECEMBER, 30), 2, true);
-            
+            Paquete p3= new Paquete(c1,a1,m1,t1,LocalDate.of(2022, Month.JUNE, 20), LocalDate.of(2022, Month.JUNE, 30), 2, true);
             cd.guardarCliente(c1);
             ad.guardarAlojamiento(a1);
             dd.guardarDestino(d1);
@@ -61,10 +61,11 @@ public class TestBelen {
             pd.guardarPaquete(p1);
             pd.guardarPaquete(p2);
             
-//            System.out.println("Precio: "+p1.calcularPrecioFinal());
-//            System.out.println("Precio: "+p1.getPrecioFinal());
-//            Paquete p2= new Paquete(1,c1,a1,m1,t1,LocalDate.of(2022, Month.DECEMBER, 20), LocalDate.of(2022, Month.DECEMBER, 30), 2, true);
-//            System.out.println("Precio: "+p2.calcularPrecioFinal());
+       System.out.println("Precio: "+p1.calcularPrecioFinal());
+          System.out.println("Precio: "+p1.getPrecioFinal());
+           //Paquete p2= new Paquete(1,c1,a1,m1,t1,LocalDate.of(2022, Month.DECEMBER, 20), LocalDate.of(2022, Month.DECEMBER, 30), 2, true);
+          System.out.println("Precio: "+p2.calcularPrecioFinal());
+          System.out.println("Precio: "+p3.calcularPrecioFinal());
             
             
             

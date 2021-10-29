@@ -64,14 +64,14 @@ public class Paquete {
         if (fechaDesde.getMonthValue() == 1 || fechaDesde.getMonthValue() == 7) {
             //CASO TEMPORADA ALTA
             pFinal *= 1.3;
-        } else {
-            
+        }  else {if (fechaDesde.getMonthValue() == 2 || fechaDesde.getMonthValue() == 6) {
+               
                 //TEMPORADA MEDIA
                 pFinal *= 1.15;
-            
-            
-        }
-        return pFinal;
+       } 
+       
+    }
+         return pFinal;
     }
 
     public int getIdPaquete() {
