@@ -13,6 +13,7 @@ import paqturistico.control.DestinoData;
 import paqturistico.control.MenuData;
 import paqturistico.control.PaqueteData;
 import paqturistico.control.TransporteData;
+import paqturistico.modelo.Alojamiento;
 import paqturistico.modelo.Conexion;
 
 /**
@@ -36,12 +37,22 @@ public class Main {
             TransporteData td = new TransporteData(con);
             PaqueteData pd = new PaqueteData(con);
             
-            ad.borrarAlojamiento(1);
+            /*ad.borrarAlojamiento(1);
             cd.borrarCliente(1);
             dd.eliminarDestino(1);
             md.borrarMenu(1);
             pd.borrarPaquete(1);
-            td.borrarTransporte(1);
+            td.borrarTransporte(1);*/
+            
+            Alojamiento alojamiento = ad.obtenerAlojamiento("Ausonia");
+            
+            System.out.println(alojamiento.toString());
+            
+            alojamiento.setNombre("Masedonia");
+            
+            ad.actualizarAlojamiento(alojamiento);
+            
+            System.out.println(alojamiento.toString());
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

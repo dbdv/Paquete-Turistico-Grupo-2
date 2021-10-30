@@ -61,7 +61,7 @@ public class TestLucio {
             Menu m1 = new Menu("Completo",5000,1,true);
             //md.guardarMenu(m1);
             
-            Paquete p1 = new Paquete(c1, a1, m1, t1, LocalDate.of(2021, Month.MARCH, 12), LocalDate.of(2021, Month.MARCH, 28), 55000, 4, true);
+            //Paquete p1 = new Paquete(c1, a1, m1, t1, LocalDate.of(2021, Month.MARCH, 12), LocalDate.of(2021, Month.MARCH, 28), 55000, 4, true);
             //pd.guardarPaquete(p1);
             
             

@@ -73,5 +73,56 @@ public class AlojamientoData {
             System.out.println("Error al borrar\n"+sqlE);
         }
     }
+    
+    public void actualizarAlojamiento(Alojamiento alojamiento){
+        
+        String sql = "UPDATE alojamiento SET nombre = ?, tipo = ?, precio = ?, activo = ? WHERE idAlojamiento = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setString(1, alojamiento.getNombre());
+            ps.setString(2, alojamiento.getTipo());
+            ps.setInt(3, alojamiento.getPrecio());
+            ps.setBoolean(4, alojamiento.isActivo());
+            ps.setInt(5, alojamiento.getIdAlojamiento());
+
+            ps.executeUpdate();
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al actualizar + sqlE");
+        }
+    }
+    
+    public Alojamiento obtenerAlojamiento(String nombre){
+        String sql = "SELECT * FROM alojamiento WHERE nombre = ?";
+        Alojamiento alojamiento = new Alojamiento();
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setString(1, nombre);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                
+                alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
+                alojamiento.setNombre(rs.getString("nombre"));
+                alojamiento.setTipo(rs.getString("tipo"));
+                alojamiento.setActivo(rs.getBoolean("activo"));
+                alojamiento.setPrecio(rs.getInt("precio"));
+                alojamiento.setIdDestino(rs.getInt("idDestino"));
+                
+            }else{
+                System.out.println("No se pudo obtener el alojamiento pero no hubo exception");
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al obtener alojamiento" + sqlE);
+        }
+        
+        return alojamiento;
+    }
 
 }
