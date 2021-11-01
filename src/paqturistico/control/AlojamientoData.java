@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import paqturistico.modelo.Alojamiento;
 import paqturistico.modelo.Conexion;
 
@@ -123,6 +125,38 @@ public class AlojamientoData {
         }
         
         return alojamiento;
+    }
+    
+    public List<Alojamiento> obtenerAlojPorDestino(String destino){
+        
+        List<Alojamiento> alojamientos = new ArrayList<>();
+        Alojamiento alojamiento = new Alojamiento();
+        String sql ="SELECT * FROM alojamiento, destino WHERE destino.nombre = ? AND destino.idDestino = alojamiento.idDestino AND alojamiento.activo = 1;";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, destino);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
+                alojamiento.setNombre(rs.getString("nombre"));
+                alojamiento.setTipo(rs.getString("tipo"));
+                alojamiento.setActivo(rs.getBoolean("activo"));
+                alojamiento.setPrecio(rs.getInt("precio"));
+                alojamiento.setIdDestino(rs.getInt("idDestino"));
+                
+                alojamientos.add(alojamiento);
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error listando por destino" + sqlE);
+        }
+        
+        return alojamientos;
     }
 
 }

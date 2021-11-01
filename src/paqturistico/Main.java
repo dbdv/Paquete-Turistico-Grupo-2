@@ -5,6 +5,8 @@
  */
 package paqturistico;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import paqturistico.control.AlojamientoData;
@@ -44,15 +46,18 @@ public class Main {
             pd.borrarPaquete(1);
             td.borrarTransporte(1);*/
             
-            Alojamiento alojamiento = ad.obtenerAlojamiento("Ausonia");
+            //Alojamiento alojamiento = ad.obtenerAlojamiento("Ausonia");
             
-            System.out.println(alojamiento.toString());
+            //System.out.println(alojamiento.toString());
             
-            alojamiento.setNombre("Masedonia");
+            //alojamiento.setNombre("Masedonia");
             
-            ad.actualizarAlojamiento(alojamiento);
+            //ad.actualizarAlojamiento(alojamiento);
             
-            System.out.println(alojamiento.toString());
+            //System.out.println(alojamiento.toString());
+            
+            List<Alojamiento> alojamientos = ad.obtenerAlojPorDestino("mendoza");
+            System.out.println(alojamientos.toString());
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
