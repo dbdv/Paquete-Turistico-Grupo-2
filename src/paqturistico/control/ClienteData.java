@@ -11,6 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import paqturistico.modelo.Cliente;
 import paqturistico.modelo.Conexion;
 
@@ -71,5 +75,135 @@ public class ClienteData {
             System.out.println("Error al borrar\n"+sqlE);
         }
     }
+    
+    public void actualizarCliente(Cliente cliente){
+        try {
+            String sql = "UPDATE cliente SET nombre = ?, dni=?, mail=?, activo=? WHERE idCliente=?";
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, cliente.getNombre());
+            ps.setInt(2, cliente.getDni());
+            ps.setString(3, cliente.getMail());
+            ps.setBoolean(4, cliente.isActivo());
+            ps.setInt(5, cliente.getIdCliente());
+            
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys(); //Recupero el ID
+            System.out.println("Cliente " + cliente.getNombre() + ", actualizado correctamente.");
 
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el cliente"+ex);
+        }
+    }
+    
+    public Cliente buscarCliente(int idCliente){
+        Cliente c = null;
+        String sql = "SELECT * FROM cliente WHERE idCliente= ?";
+        try {
+            
+            PreparedStatement ps;
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
+            ps.executeUpdate();
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                c = new Cliente();
+                c.setIdCliente(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setDni(rs.getInt(3));
+                c.setMail(rs.getString(4));
+                c.setActivo(rs.getBoolean(5));                
+                
+
+            }
+            ps.close();
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar Cliente"+ ex);
+        }
+        return c;
+    }
+    
+    public List<Cliente> obtenerClientes(){
+        List <Cliente> clientes = new ArrayList<>();
+        Cliente c = new Cliente();
+        
+        String sql = "SELECT * FROM cliente";
+        PreparedStatement ps;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                c.setIdCliente(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setDni(rs.getInt(3));
+                c.setMail(rs.getString(4));
+                c.setActivo(rs.getBoolean(5));                
+                clientes.add(c);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener ClienteS"+ ex);
+        }
+        return clientes;
+        
+        
+    }
+    
+    public List<Cliente> obtenerClientesActivos(){
+        List <Cliente> clientes = new ArrayList<>();
+        Cliente c = new Cliente();
+        
+        String sql = "SELECT * FROM cliente WHERE cliente.activo=true";
+        PreparedStatement ps;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                c.setIdCliente(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setDni(rs.getInt(3));
+                c.setMail(rs.getString(4));
+                c.setActivo(rs.getBoolean(5));                
+                clientes.add(c);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener ClienteS"+ ex);
+        }
+        return clientes;
+        
+        
+    }
+    
+    public List<Cliente> obtenerClientesInactivos(){
+        List <Cliente> clientes = new ArrayList<>();
+        Cliente c = new Cliente();
+        
+        String sql = "SELECT * FROM cliente WHERE cliente.activo=false";
+        PreparedStatement ps;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                c.setIdCliente(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setDni(rs.getInt(3));
+                c.setMail(rs.getString(4));
+                c.setActivo(rs.getBoolean(5));                
+                clientes.add(c);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener ClienteS"+ ex);
+        }
+        return clientes;
+        
+        
+    }
 }

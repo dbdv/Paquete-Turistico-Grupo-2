@@ -90,7 +90,7 @@ public class AlojamientoData {
             ps.setInt(5, alojamiento.getIdAlojamiento());
 
             ps.executeUpdate();
-            
+            ps.close();
         }catch(SQLException sqlE){
             System.out.println("error al actualizar + sqlE");
         }
@@ -119,6 +119,7 @@ public class AlojamientoData {
             }else{
                 System.out.println("No se pudo obtener el alojamiento pero no hubo exception");
             }
+            ps.close();
             
         }catch(SQLException sqlE){
             System.out.println("error al obtener alojamiento" + sqlE);
@@ -151,6 +152,7 @@ public class AlojamientoData {
                 
                 alojamientos.add(alojamiento);
             }
+            ps.close();
             
         }catch(SQLException sqlE){
             System.out.println("error listando por destino" + sqlE);
@@ -158,5 +160,6 @@ public class AlojamientoData {
         
         return alojamientos;
     }
-
+    
+    
 }
