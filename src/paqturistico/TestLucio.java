@@ -53,7 +53,7 @@ public class TestLucio {
             //dd.guardarDestino(d1);
            
             Transporte t1 = new Transporte("Colectivo",5000,1,true);
-            td.guardarTransporte(t1);
+            //td.guardarTransporte(t1);
             
             Alojamiento a1 = new Alojamiento("Ausonia","Hotel",15000,1,true);
             //ad.guardarAlojamiento(a1);
@@ -63,7 +63,9 @@ public class TestLucio {
             
             //Paquete p1 = new Paquete(c1, a1, m1, t1, LocalDate.of(2021, Month.MARCH, 12), LocalDate.of(2021, Month.MARCH, 28), 55000, 4, true);
             //pd.guardarPaquete(p1);
-            
+            System.out.println(cd.obtenerClientes());
+            System.out.println(cd.obtenerClientesActivos());
+            System.out.println(cd.obtenerClientesInactivos());
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TestLucio.class.getName()).log(Level.SEVERE, null, ex);
