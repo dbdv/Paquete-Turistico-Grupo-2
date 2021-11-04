@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import paqturistico.modelo.Conexion;
 import paqturistico.modelo.Destino;
 
@@ -32,17 +34,17 @@ public class DestinoData {
     }
     
     public void guardarDestino(Destino dest) {
-        String sql = "INSERT INTO destino(nombre, pais) VALUES (?,?)";
+        String sql = "INSERT INTO destino(nombre, pais, activo) VALUES (?,?,?)";
 
         try {
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {  //Prepara la sentencia para SQL
                 ps.setString(1, dest.getNombre());
                 ps.setString(2, dest.getPais());
-                
+                ps.setBoolean(3, dest.isActivo());
                 
 
                 ps.executeUpdate(); //NO PONER PARAMETROS
-                ResultSet rs = ps.getGeneratedKeys(); //Recupero el ID (idCliente)
+                ResultSet rs = ps.getGeneratedKeys(); //Recupero el ID 
                 if (rs.next()) {
                     System.out.println("Destino " + dest.getNombre() + ", cargado correctamente.");
                     
@@ -142,4 +144,32 @@ public class DestinoData {
         
         return destinos;
     }
+    
+      public Destino buscarDestino(int id) {
+       
+            Destino d = null;
+            
+            String sql = "SELECT * FROM destino WHERE idDestino = ?";
+            PreparedStatement ps;
+         try{   
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                d = new Destino();
+                d.setIdDestino(rs.getInt(1));
+                d.setNombre(rs.getString(2));
+                d.setPais(rs.getString(3));
+                d.setActivo(rs.getBoolean(4));
+                
+            }
+             ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DestinoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return d;
+      }
 }
+

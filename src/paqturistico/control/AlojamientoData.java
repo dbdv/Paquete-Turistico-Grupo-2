@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import paqturistico.modelo.Alojamiento;
 import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
 
 /**
  *
@@ -39,7 +40,7 @@ public class AlojamientoData {
                 ps.setString(1, alojamiento.getNombre());
                 ps.setString(2, alojamiento.getTipo());
                 ps.setInt(3, alojamiento.getPrecio());
-                ps.setInt(4,alojamiento.getIdDestino());
+                ps.setInt(4,alojamiento.getIdDestino().getIdDestino());
                 ps.setBoolean(5, alojamiento.isActivo());
                 
 
@@ -114,7 +115,8 @@ public class AlojamientoData {
                 alojamiento.setTipo(rs.getString("tipo"));
                 alojamiento.setActivo(rs.getBoolean("activo"));
                 alojamiento.setPrecio(rs.getInt("precio"));
-                alojamiento.setIdDestino(rs.getInt("idDestino"));
+              
+                alojamiento.getIdDestino().setIdDestino(rs.getInt("idDestino"));
                 
             }else{
                 System.out.println("No se pudo obtener el alojamiento pero no hubo exception");
@@ -148,7 +150,7 @@ public class AlojamientoData {
                 alojamiento.setTipo(rs.getString("tipo"));
                 alojamiento.setActivo(rs.getBoolean("activo"));
                 alojamiento.setPrecio(rs.getInt("precio"));
-                alojamiento.setIdDestino(rs.getInt("idDestino"));
+                alojamiento.getIdDestino().setIdDestino(rs.getInt("idDestino"));
                 
                 alojamientos.add(alojamiento);
             }

@@ -14,10 +14,10 @@ public class Alojamiento {
     private String nombre;
     private String tipo;
     private int precio; //fijarse si es necesario usar double para los centavos
-    private int idDestino;
+    private Destino idDestino;
     private boolean activo;
 
-    public Alojamiento(int idAlojamiento, String nombre, String tipo, int precio, int idDestino, boolean activo) {
+    public Alojamiento(int idAlojamiento, String nombre, String tipo, int precio, Destino idDestino, boolean activo) {
         this.idAlojamiento = idAlojamiento;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -26,7 +26,7 @@ public class Alojamiento {
         this.activo = activo;
     }
 
-    public Alojamiento(String nombre, String tipo, int precio, int idDestino, boolean activo) {
+    public Alojamiento(String nombre, String tipo, int precio, Destino idDestino, boolean activo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.precio = precio;
@@ -71,11 +71,11 @@ public class Alojamiento {
         this.precio = precio;
     }
 
-    public int getIdDestino() {
+    public Destino getIdDestino() {
         return idDestino;
     }
 
-    public void setIdDestino(int idDestino) {
+    public void setIdDestino(Destino idDestino) {
         this.idDestino = idDestino;
     }
 

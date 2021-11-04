@@ -13,10 +13,10 @@ public class Transporte {
     private int idTransporte;
     private String tipo;
     private int precio;
-    private int idDestino;
+    private Destino idDestino;
     private boolean activo;
 
-    public Transporte(int idTransporte, String tipo, int precio, int idDestino, boolean activo) {
+    public Transporte(int idTransporte, String tipo, int precio, Destino idDestino, boolean activo) {
         this.idTransporte = idTransporte;
         this.tipo = tipo;
         this.precio = precio;
@@ -24,7 +24,7 @@ public class Transporte {
         this.activo = activo;
     }
 
-    public Transporte(String tipo, int precio, int idDestino, boolean activo) {
+    public Transporte(String tipo, int precio, Destino idDestino, boolean activo) {
         this.tipo = tipo;
         this.precio = precio;
         this.idDestino = idDestino;
@@ -58,11 +58,11 @@ public class Transporte {
         this.precio = precio;
     }
 
-    public int getIdDestino() {
+    public Destino getIdDestino() {
         return idDestino;
     }
 
-    public void setIdDestino(int idDestino) {
+    public void setIdDestino(Destino idDestino) {
         this.idDestino = idDestino;
     }
 

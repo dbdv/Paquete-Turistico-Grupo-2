@@ -13,16 +13,19 @@ public class Destino {
     private int idDestino;
     private String nombre;
     private String pais;
+    private boolean activo;
 
-    public Destino(int idDestino, String nombre, String pais) {
+    public Destino(int idDestino, String nombre, String pais, boolean activo) {
         this.idDestino = idDestino;
         this.nombre = nombre;
         this.pais = pais;
+        this.activo=activo;
     }
 
-    public Destino(String nombre, String pais) {
+    public Destino(String nombre, String pais, boolean activo) {
         this.nombre = nombre;
         this.pais = pais;
+        this.activo= activo;
     }
 
     public Destino() {
@@ -31,6 +34,8 @@ public class Destino {
     public int getIdDestino() {
         return idDestino;
     }
+  
+    
 
     public void setIdDestino(int idDestino) {
         this.idDestino = idDestino;
@@ -50,6 +55,13 @@ public class Destino {
 
     public void setPais(String pais) {
         this.pais = pais;
+    }
+     public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     @Override

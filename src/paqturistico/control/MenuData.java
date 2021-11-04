@@ -36,7 +36,7 @@ public class MenuData {
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {  //Prepara la sentencia para SQL
                 ps.setString(1, menu.getTipo());
                 ps.setInt(2, menu.getPrecio());
-                ps.setInt(3, menu.getIdAlojamiento());
+                ps.setInt(3, menu.getIdAlojamiento().getIdAlojamiento());
                 ps.setBoolean(4, menu.isActivo());
                 
                 
