@@ -57,7 +57,7 @@ public class TestLucio {
             Alojamiento a2 = new Alojamiento ("Potrero", "Hotel", 18000, dd.obtenerDestino("Merlo"), true);
             //ad.guardarAlojamiento(a2);
             System.out.println(ad.obtenerAlojamiento("Ausonia"));
-            System.out.println(ad.obtenerAlojPorDestino("Mar del Plata"));
+            System.out.println(ad.obtenerAlojPorDestino("Merlo"));
             
 
 
