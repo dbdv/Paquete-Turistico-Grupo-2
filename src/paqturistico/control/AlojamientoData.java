@@ -103,7 +103,7 @@ public class AlojamientoData {
         
         Alojamiento alojamiento = new Alojamiento();        
         Destino destino;
-        String sql = "SELECT * FROM alojamiento a WHERE a.nombre=?;";
+        String sql = "SELECT * FROM alojamiento a WHERE a.nombre=? AND activo=true;";
         PreparedStatement ps;
         try{
              ps = con.prepareStatement(sql);
