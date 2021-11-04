@@ -32,6 +32,10 @@ public class DestinoData {
             System.out.println("Error en la conexión");
         }
     }
+
+    DestinoData() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public void guardarDestino(Destino dest) {
         String sql = "INSERT INTO destino(nombre, pais, activo) VALUES (?,?,?)";
@@ -92,6 +96,31 @@ public class DestinoData {
         }catch(SQLException sqlE){
             System.out.println("Error al borrar\n"+sqlE);
         }
+    }
+    
+    public Destino obtenerDestinoPorId(int idDestino){
+        
+        Destino destino = new Destino();
+        String sql = "SELECT * FROM destino WHERE idDestino = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idDestino);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                destino.setIdDestino(rs.getInt("idDestino"));
+                destino.setNombre(rs.getString("nombre"));
+                destino.setPais(rs.getString("pais"));
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al buscar destino " + sqlE);
+        }
+        
+        return destino;
     }
     
     public Destino obtenerDestino(String nombre){

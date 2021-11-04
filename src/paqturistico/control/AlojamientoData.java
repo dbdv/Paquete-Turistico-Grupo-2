@@ -22,9 +22,11 @@ import paqturistico.modelo.Destino;
  */
 public class AlojamientoData {
     private Connection con;
+    private Conexion conexion;
 
     public AlojamientoData(Conexion conexion) {
         try {
+            this.conexion=conexion;
             this.con = conexion.getConexion();
             System.out.println("Conectado");
         } catch (SQLException ex) {
@@ -98,25 +100,29 @@ public class AlojamientoData {
     }
     
     public Alojamiento obtenerAlojamiento(String nombre){
-        String sql = "SELECT * FROM alojamiento WHERE nombre = ?";
-        Alojamiento alojamiento = new Alojamiento();
         
+        Alojamiento alojamiento = new Alojamiento();        
+        Destino destino;
+        String sql = "SELECT * FROM alojamiento a, destino d WHERE a.nombre=? AND a.idDestino=d.idDestino;";
+        PreparedStatement ps;
         try{
-            PreparedStatement ps = con.prepareStatement(sql);
+             ps = con.prepareStatement(sql);
             
             ps.setString(1, nombre);
+            //ps.setInt(2, idDestino);
             
             ResultSet rs = ps.executeQuery();
             
-            if(rs.next()){
-                
+            if(rs.next()){                
+                destino = buscarDestino(rs.getInt("idDestino"));               
                 alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
                 alojamiento.setNombre(rs.getString("nombre"));
                 alojamiento.setTipo(rs.getString("tipo"));
                 alojamiento.setActivo(rs.getBoolean("activo"));
                 alojamiento.setPrecio(rs.getInt("precio"));
-              
-                alojamiento.getIdDestino().setIdDestino(rs.getInt("idDestino"));
+                alojamiento.setIdDestino(destino);
+                
+                //alojamiento.getIdDestino().setIdDestino(rs.getInt("idDestino"));
                 
             }else{
                 System.out.println("No se pudo obtener el alojamiento pero no hubo exception");
@@ -127,13 +133,14 @@ public class AlojamientoData {
             System.out.println("error al obtener alojamiento" + sqlE);
         }
         
-        return alojamiento;
+        return alojamiento;        
     }
     
     public List<Alojamiento> obtenerAlojPorDestino(String destino){
         
         List<Alojamiento> alojamientos = new ArrayList<>();
         Alojamiento alojamiento = new Alojamiento();
+        Destino dest;
         String sql ="SELECT * FROM alojamiento, destino WHERE destino.nombre = ? AND destino.idDestino = alojamiento.idDestino AND alojamiento.activo = 1;";
         
         try{
@@ -144,13 +151,13 @@ public class AlojamientoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                
+                dest = buscarDestino(rs.getInt("idDestino"));  
                 alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
                 alojamiento.setNombre(rs.getString("nombre"));
                 alojamiento.setTipo(rs.getString("tipo"));
                 alojamiento.setActivo(rs.getBoolean("activo"));
                 alojamiento.setPrecio(rs.getInt("precio"));
-                alojamiento.getIdDestino().setIdDestino(rs.getInt("idDestino"));
+                alojamiento.setIdDestino(dest);
                 
                 alojamientos.add(alojamiento);
             }
@@ -163,5 +170,9 @@ public class AlojamientoData {
         return alojamientos;
     }
     
-    
+    public Destino buscarDestino(int id) {        
+        DestinoData dd = new DestinoData(conexion);
+        return dd.buscarDestino(id);   
+
+    }
 }

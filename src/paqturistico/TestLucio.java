@@ -49,23 +49,33 @@ public class TestLucio {
             Cliente c1 = new Cliente("Juan Carlos",17647200,"juancarlos@gmail.com",true);
             //cd.guardarCliente(c1);
             
-            Destino d1 = new Destino("Mar del Plata","Argentina");
+            //Destino d1 = new Destino("Mar del Plata","Argentina");
             //dd.guardarDestino(d1);
-           
-            Transporte t1 = new Transporte("Colectivo",5000,1,true);
+            Destino d2 = new Destino ("Potrero","Argentina", true);
+            //dd.guardarDestino(d2);
+            
+            Alojamiento a2 = new Alojamiento ("Potrero", "Hotel", 18000, dd.obtenerDestino("Merlo"), true);
+            //ad.guardarAlojamiento(a2);
+            System.out.println(ad.obtenerAlojamiento("Ausonia"));
+            System.out.println(ad.obtenerAlojPorDestino("Mar del Plata"));
+            
+
+
+            //Transporte t1 = new Transporte("Colectivo",5000,1,true);
             //td.guardarTransporte(t1);
             
-            Alojamiento a1 = new Alojamiento("Ausonia","Hotel",15000,1,true);
+            //Alojamiento a1 = new Alojamiento("Ausonia","Hotel",15000,1,true);
             //ad.guardarAlojamiento(a1);
             
-            Menu m1 = new Menu("Completo",5000,1,true);
+            //Menu m1 = new Menu("Completo",5000,1,true);
             //md.guardarMenu(m1);
             
             //Paquete p1 = new Paquete(c1, a1, m1, t1, LocalDate.of(2021, Month.MARCH, 12), LocalDate.of(2021, Month.MARCH, 28), 55000, 4, true);
             //pd.guardarPaquete(p1);
-            System.out.println(cd.obtenerClientes());
+           /* System.out.println(cd.obtenerClientes());
             System.out.println(cd.obtenerClientesActivos());
             System.out.println(cd.obtenerClientesInactivos());
+            System.out.println(ad.obtenerAlojPorDestino("Mar del Plata"));*/
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TestLucio.class.getName()).log(Level.SEVERE, null, ex);
