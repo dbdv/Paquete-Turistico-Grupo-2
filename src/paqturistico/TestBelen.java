@@ -72,9 +72,9 @@ public class TestBelen {
           System.out.println("Precio: "+p3.calcularPrecioFinal());
            System.out.println(dd.obtenerDestino("Neuquen"));
             
-           // System.out.println(ad.obtenerAlojamiento("Alojamiento 1"));
+            System.out.println(ad.obtenerAlojamiento("Alojamiento 1"));
            System.out.println(ad.obtenerAlojPorDestino("Neuquen"));
-           
+           System.out.println(md.obtenerMenuPorAlojamiento("Alojamiento 1"));
             
             
         } catch (ClassNotFoundException ex) {

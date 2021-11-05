@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import paqturistico.modelo.Alojamiento;
 import paqturistico.modelo.Conexion;
 import paqturistico.modelo.Destino;
@@ -103,7 +105,7 @@ public class AlojamientoData {
         
         Alojamiento alojamiento = new Alojamiento();        
         Destino destino;
-        String sql = "SELECT * FROM alojamiento a WHERE a.nombre=? AND activo=true;";
+        String sql = "SELECT * FROM alojamiento WHERE nombre=? ";
         PreparedStatement ps;
         try{
              ps = con.prepareStatement(sql);
@@ -175,4 +177,38 @@ public class AlojamientoData {
         return dd.buscarDestino(id);   
 
     }
+     
+
+      public Alojamiento buscarAlojamiento(int id) {
+       
+       
+            Alojamiento a = null;
+            Destino destino;
+            String sql = "SELECT * FROM alojamiento WHERE idAlojamiento = ?";
+            PreparedStatement ps;
+           try {  
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                a = new Alojamiento();
+                destino = buscarDestino(rs.getInt("idDestino"));  
+                a.setIdAlojamiento(rs.getInt(1));
+                a.setNombre(rs.getString(2));
+                a.setTipo(rs.getString(3));
+                a.setActivo(rs.getBoolean(6));
+                a.setPrecio(rs.getInt(4));
+                a.setIdDestino(destino);
+                
+            }
+            ps.close();
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(AlojamientoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return a;
+      }
 }

@@ -98,30 +98,7 @@ public class DestinoData {
         }
     }
     
-    public Destino obtenerDestinoPorId(int idDestino){
-        
-        Destino destino = new Destino();
-        String sql = "SELECT * FROM destino WHERE idDestino = ?";
-        
-        try{
-            
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idDestino);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs.next()){
-                destino.setIdDestino(rs.getInt("idDestino"));
-                destino.setNombre(rs.getString("nombre"));
-                destino.setPais(rs.getString("pais"));
-            }
-            
-        }catch(SQLException sqlE){
-            System.out.println("error al buscar destino " + sqlE);
-        }
-        
-        return destino;
-    }
+    
     
     public Destino obtenerDestino(String nombre){
         
