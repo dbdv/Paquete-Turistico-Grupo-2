@@ -48,6 +48,12 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jcbCombo = new javax.swing.JComboBox<>();
         jbBorrar = new javax.swing.JButton();
+        jtDni = new javax.swing.JTextField();
+        jtMail = new javax.swing.JTextField();
+        jtId = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setResizable(true);
@@ -64,6 +70,18 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jtDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtDniActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("DNI:");
+
+        jLabel4.setText("Mail:");
+
+        jLabel5.setText("ID:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,11 +90,18 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jLabel2)
-                        .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(66, 66, 66)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jbBorrar)
-                            .addComponent(jcbCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jcbCombo, 0, 256, Short.MAX_VALUE)
+                            .addComponent(jtDni)
+                            .addComponent(jtMail)
+                            .addComponent(jtId)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(207, 207, 207)
                         .addComponent(jLabel1)))
@@ -91,9 +116,21 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(jbBorrar)
-                .addGap(67, 67, 67))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -101,26 +138,41 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         // TODO add your handling code here:
-        Cliente c =(Cliente) jcbCombo.getSelectedItem();        
+        Cliente c = cd.buscarClientePorNombre(jcbCombo.getSelectedItem().toString());
         cd.borrarCliente(c.getIdCliente());
         
     }//GEN-LAST:event_jbBorrarActionPerformed
 
+    private void jtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtDniActionPerformed
+
     private void llenarCombo(){
-        List <Cliente> clientes = new ArrayList<>();
-        clientes = cd.obtenerClientesActivos();
+        List <Cliente> clientes = cd.obtenerClientesActivos();
+        
         
         for(Cliente c:clientes){
-           jcbCombo.addItem(c.toString());
-        
+           jcbCombo.addItem(c.getNombre());
         }
+        
+        Cliente cliente = cd.buscarClientePorNombre(jcbCombo.getSelectedItem().toString());
+        
+        jtDni.setText(Integer.toString(cliente.getDni()));
+        jtId.setText(Integer.toString(cliente.getIdCliente()));
+        jtMail.setText(cliente.getMail());
         
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JComboBox<String> jcbCombo;
+    private javax.swing.JTextField jtDni;
+    private javax.swing.JTextField jtId;
+    private javax.swing.JTextField jtMail;
     // End of variables declaration//GEN-END:variables
 }

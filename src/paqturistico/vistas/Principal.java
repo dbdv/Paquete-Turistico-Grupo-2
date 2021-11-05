@@ -78,6 +78,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu2.add(jmBorrarCliente);
 
         jmActualizarCliente.setText("Actualizar cliente");
+        jmActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmActualizarClienteActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmActualizarCliente);
 
         jMenuBar1.add(jMenu2);
@@ -136,6 +141,17 @@ public class Principal extends javax.swing.JFrame {
         escritorio.add(bc);
         escritorio.moveToFront(bc);
     }//GEN-LAST:event_jmBorrarClienteActionPerformed
+
+    private void jmActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmActualizarClienteActionPerformed
+        // TODO add your handling code here:
+        VistaActualizarCliente vac = new VistaActualizarCliente();
+        vac.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        escritorio.add(vac);
+        escritorio.moveToFront(vac);
+    }//GEN-LAST:event_jmActualizarClienteActionPerformed
 
     /**
      * @param args the command line arguments
