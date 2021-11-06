@@ -64,6 +64,8 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jtId.setEditable(false);
+
         jLabel1.setText("Cliente:");
 
         jLabel2.setText("DNI:");

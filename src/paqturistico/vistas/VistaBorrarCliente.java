@@ -76,11 +76,16 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jtDni.setEditable(false);
         jtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtDniActionPerformed(evt);
             }
         });
+
+        jtMail.setEditable(false);
+
+        jtId.setEditable(false);
 
         jLabel3.setText("DNI:");
 
