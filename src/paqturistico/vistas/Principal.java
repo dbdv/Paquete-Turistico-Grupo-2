@@ -37,9 +37,9 @@ public class Principal extends javax.swing.JFrame {
         jmBorrarCliente = new javax.swing.JMenuItem();
         jmActualizarCliente = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        miAgregarDestino = new javax.swing.JMenuItem();
+        miEliminarDestino = new javax.swing.JMenuItem();
+        miActualizarDestino = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -94,19 +94,29 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu3.setText("Destinos");
 
-        jMenuItem1.setText("Agregar destino");
-        jMenu3.add(jMenuItem1);
-
-        jMenuItem2.setText("Eliminar destino");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        miAgregarDestino.setText("Agregar destino");
+        miAgregarDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                miAgregarDestinoActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        jMenu3.add(miAgregarDestino);
 
-        jMenuItem3.setText("Actualizar destino");
-        jMenu3.add(jMenuItem3);
+        miEliminarDestino.setText("Eliminar destino");
+        miEliminarDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEliminarDestinoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miEliminarDestino);
+
+        miActualizarDestino.setText("Actualizar destino");
+        miActualizarDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miActualizarDestinoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miActualizarDestino);
 
         jMenuBar1.add(jMenu3);
 
@@ -175,9 +185,40 @@ public class Principal extends javax.swing.JFrame {
         escritorio.moveToFront(vac);
     }//GEN-LAST:event_jmActualizarClienteActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void miEliminarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEliminarDestinoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        VistaEliminarDestino vEliminarDestino = new VistaEliminarDestino();
+        vEliminarDestino.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        escritorio.add(vEliminarDestino);
+        escritorio.moveToFront(vEliminarDestino);
+    }//GEN-LAST:event_miEliminarDestinoActionPerformed
+
+    private void miAgregarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAgregarDestinoActionPerformed
+        // TODO add your handling code here:
+        
+        VistaAgregarDestino vAgregarDestino = new VistaAgregarDestino();
+        vAgregarDestino.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        escritorio.add(vAgregarDestino);
+        escritorio.moveToFront(vAgregarDestino);
+        
+    }//GEN-LAST:event_miAgregarDestinoActionPerformed
+
+    private void miActualizarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miActualizarDestinoActionPerformed
+        // TODO add your handling code here:
+        VistaActualizarDestino vActualizarDestino = new VistaActualizarDestino();
+        vActualizarDestino.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        escritorio.add(vActualizarDestino);
+        escritorio.moveToFront(vActualizarDestino);
+    }//GEN-LAST:event_miActualizarDestinoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,11 +264,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jmActualizarCliente;
     private javax.swing.JMenuItem jmAgregarCliente;
     private javax.swing.JMenuItem jmBorrarCliente;
+    private javax.swing.JMenuItem miActualizarDestino;
+    private javax.swing.JMenuItem miAgregarDestino;
+    private javax.swing.JMenuItem miEliminarDestino;
     // End of variables declaration//GEN-END:variables
 }
