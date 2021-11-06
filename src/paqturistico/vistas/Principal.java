@@ -5,6 +5,8 @@
  */
 package paqturistico.vistas;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
@@ -140,6 +142,8 @@ public class Principal extends javax.swing.JFrame {
         bc.setVisible(true);
         escritorio.add(bc);
         escritorio.moveToFront(bc);
+        
+        
     }//GEN-LAST:event_jmBorrarClienteActionPerformed
 
     private void jmActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmActualizarClienteActionPerformed

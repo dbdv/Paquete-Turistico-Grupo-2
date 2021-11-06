@@ -63,6 +63,12 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Seleccione un cliente:");
 
+        jcbCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbComboActionPerformed(evt);
+            }
+        });
+
         jbBorrar.setText("Borrar");
         jbBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +103,9 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5))
                         .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbBorrar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbBorrar)
+                                .addGap(43, 43, 43))
                             .addComponent(jcbCombo, 0, 256, Short.MAX_VALUE)
                             .addComponent(jtDni)
                             .addComponent(jtMail)
@@ -128,7 +136,7 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jbBorrar)
                 .addGap(34, 34, 34))
         );
@@ -138,8 +146,11 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         // TODO add your handling code here:
+       
         Cliente c = cd.buscarClientePorNombre(jcbCombo.getSelectedItem().toString());
         cd.borrarCliente(c.getIdCliente());
+       JOptionPane.showMessageDialog(this, "Cliente borrado con éxito");
+        
         
     }//GEN-LAST:event_jbBorrarActionPerformed
 
@@ -147,19 +158,25 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtDniActionPerformed
 
-    private void llenarCombo(){
-        List <Cliente> clientes = cd.obtenerClientesActivos();
-        
-        
-        for(Cliente c:clientes){
-           jcbCombo.addItem(c.getNombre());
-        }
+    private void jcbComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbComboActionPerformed
+        // TODO add your handling code here:
         
         Cliente cliente = cd.buscarClientePorNombre(jcbCombo.getSelectedItem().toString());
         
         jtDni.setText(Integer.toString(cliente.getDni()));
         jtId.setText(Integer.toString(cliente.getIdCliente()));
         jtMail.setText(cliente.getMail());
+    }//GEN-LAST:event_jcbComboActionPerformed
+
+    private void llenarCombo(){
+        List <Cliente> clientes = cd.obtenerClientesActivos();
+       
+        
+        for(Cliente c:clientes){
+           jcbCombo.addItem(c.getNombre());
+        }
+       
+        
         
     }
     

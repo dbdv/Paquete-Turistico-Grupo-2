@@ -75,7 +75,7 @@ public class TestBelen {
             System.out.println(ad.obtenerAlojamiento("Alojamiento 1"));
            System.out.println(ad.obtenerAlojPorDestino("Neuquen"));
            System.out.println(md.obtenerMenuPorAlojamiento("Alojamiento 1"));
-            
+            System.out.println(cd.buscarClientePorNombre("Laura Lopez"));
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TestBelen.class.getName()).log(Level.SEVERE, null, ex);

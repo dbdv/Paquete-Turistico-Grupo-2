@@ -28,10 +28,11 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
         
         try{
             cd = new ClienteData(con = new Conexion());
-            llenarCampos();
+           
         }catch(ClassNotFoundException cnf){
             System.out.println("error al cargar la vista de actualizar\n"+cnf);
         }
+         llenarCampos();
         
         
     }
@@ -123,9 +124,9 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
                     .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcActivo)
-                    .addComponent(jLabel5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jcActivo))
                 .addGap(42, 42, 42)
                 .addComponent(jbActualizar)
                 .addContainerGap(92, Short.MAX_VALUE))
@@ -136,6 +137,13 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
 
     private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
         // TODO add your handling code here:
+                 Cliente cliente;
+        cliente = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
+        
+        jtDni.setText(Integer.toString(cliente.getDni()));
+        jtMail.setText(cliente.getMail());
+        jtId.setText(Integer.toString(cliente.getIdCliente()));
+        jcActivo.setSelected(cliente.isActivo());
     }//GEN-LAST:event_jcbClienteActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
@@ -150,20 +158,14 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
         cd.actualizarCliente(cliente);
     }//GEN-LAST:event_jbActualizarActionPerformed
 
-    public void llenarCampos(){
+    private void llenarCampos(){
         
-        List<Cliente> clientes = cd.obtenerClientesActivos();
+        List<Cliente> clientes = cd.obtenerClientes();
         Cliente cliente;
         for(Cliente c: clientes){
             jcbCliente.addItem(c.getNombre());
         }
-        
-        cliente = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
-        
-        jtDni.setText(Integer.toString(cliente.getDni()));
-        jtMail.setText(cliente.getMail());
-        jtId.setText(Integer.toString(cliente.getIdCliente()));
-        jcActivo.setSelected(cliente.isActivo());
+       
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
