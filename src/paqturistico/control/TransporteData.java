@@ -10,7 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
 import paqturistico.modelo.Transporte;
 
 /**
@@ -19,9 +24,11 @@ import paqturistico.modelo.Transporte;
  */
 public class TransporteData {
     private Connection con;
+    private Conexion conexion;
 
     public TransporteData(Conexion conexion) {
         try {
+            this.conexion=conexion;
             this.con = conexion.getConexion();
             System.out.println("Conectado");
         } catch (SQLException ex) {
@@ -73,5 +80,67 @@ public class TransporteData {
             System.out.println("Error al borrar\n"+sqlE);
         }
     }
+    public List<Transporte> obtenerTransportes (){
+        List<Transporte> trans = new ArrayList<>();
+        Transporte t = new Transporte();
+        Destino d = new Destino(); 
+        String sql ="SELECT * FROM transporte WHERE transporte.activo=1;";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                d = buscarDestino(rs.getInt("idDestino"));
+                t.setIdTransporte(rs.getInt("idTransporte"));
+                t.setTipo(rs.getString("tipo"));
+                t.setPrecio(rs.getInt("precio"));
+                t.setIdDestino(d);
+                t.setActivo(rs.getBoolean("activo"));             
+               
+                trans.add(t);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("error obteniendo transportes" + ex);
+        }
+        return trans;
+    }
+    public List<Transporte> obtenerTransportesPorDestino(String destino){
+        List<Transporte> trans = new ArrayList<>();
+        Transporte t = new Transporte();
+        Destino d = new Destino();        
+        String sql ="SELECT * FROM transporte, destino WHERE destino.nombre= ? AND transporte.idDestino = destino.idDestino AND destino.activo = 1 AND transporte.activo=1;";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, destino);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                d = buscarDestino(rs.getInt("idDestino"));
+                t.setIdTransporte(rs.getInt("idTransporte"));
+                t.setTipo(rs.getString("tipo"));
+                t.setPrecio(rs.getInt("precio"));
+                t.setIdDestino(d);
+                t.setActivo(rs.getBoolean("activo"));             
+               
+                trans.add(t);
+               
+            }
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("error obteniendo transportes" + sqlE);
+        }  
+        return trans;
+    }
+    
+     public Destino buscarDestino (int id) {      
+        DestinoData dd = new DestinoData(conexion);         
+        return dd.buscarDestino(id);
 
+    }
 }
