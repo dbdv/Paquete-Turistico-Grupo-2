@@ -116,6 +116,7 @@ public class DestinoData {
                 destino.setIdDestino(rs.getInt("idDestino"));
                 destino.setNombre(rs.getString("nombre"));
                 destino.setPais(rs.getString("pais"));
+                destino.setActivo(rs.getBoolean("activo"));
             }
             
         }catch(SQLException sqlE){
@@ -140,6 +141,34 @@ public class DestinoData {
                 destino.setIdDestino(rs.getInt("idDestino"));
                 destino.setNombre(rs.getString("nombre"));
                 destino.setPais(rs.getString("pais"));
+                destino.setActivo(rs.getBoolean("activo"));
+                
+                destinos.add(destino);
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al obtener destinos " + sqlE);
+        }
+        
+        return destinos;
+    }
+    
+    public List<Destino> obtenerDestinosActivos(){
+        
+        List<Destino> destinos = new ArrayList<>();
+        Destino destino = new Destino();
+        String sql = "SELECT * FROM destino WHERE activo = 1;";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                destino.setIdDestino(rs.getInt("idDestino"));
+                destino.setNombre(rs.getString("nombre"));
+                destino.setPais(rs.getString("pais"));
+                destino.setActivo(true);
                 
                 destinos.add(destino);
             }
@@ -176,6 +205,25 @@ public class DestinoData {
             Logger.getLogger(DestinoData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return d;
+      }
+      
+      public void actualizarDestino(Destino destino){
+          
+          try{
+              
+              String sql = "UPDATE destino SET nombre = ?, pais = ?, activo = ? WHERE idDestino = ?; ";
+              PreparedStatement ps = con.prepareStatement(sql);
+              
+              ps.setString(1, destino.getNombre());
+              ps.setString(2, destino.getPais());
+              ps.setBoolean(3, destino.isActivo());
+              ps.setInt(4, destino.getIdDestino());
+              
+              ps.executeUpdate();
+              
+          }catch(SQLException error){
+              System.out.println("error al actualizar destino \n"+error);
+          }
       }
 }
 

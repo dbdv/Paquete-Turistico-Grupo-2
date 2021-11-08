@@ -5,6 +5,10 @@
  */
 package paqturistico.vistas;
 
+import paqturistico.control.DestinoData;
+import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
+
 /**
  *
  * @author familia
@@ -14,8 +18,20 @@ public class VistaAgregarDestino extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaAgregarDestino
      */
+    
+    private DestinoData dd;
+    private Conexion con;
+    
     public VistaAgregarDestino() {
         initComponents();
+        
+        try{
+            con = new Conexion();
+            dd = new DestinoData(con);
+            
+        }catch(ClassNotFoundException error){
+            System.out.println("Error al iniciar la vista Agregar Destino\n"+error);
+        }
     }
 
     /**
@@ -38,6 +54,11 @@ public class VistaAgregarDestino extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nombre:");
 
@@ -46,6 +67,11 @@ public class VistaAgregarDestino extends javax.swing.JInternalFrame {
         jLabel3.setText("Activo:");
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setText("Agregar Destino");
@@ -106,6 +132,24 @@ public class VistaAgregarDestino extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        jtNombre.setText("");
+        jtPais.setText("");
+        cbActivo.setSelected(false);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        Destino destino = new Destino();
+        
+        destino.setActivo(cbActivo.isSelected());
+        destino.setNombre(jtNombre.getText());
+        destino.setPais(jtPais.getText());
+        
+        dd.guardarDestino(destino);
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

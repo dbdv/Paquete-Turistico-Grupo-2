@@ -5,6 +5,11 @@
  */
 package paqturistico.vistas;
 
+import java.util.List;
+import paqturistico.control.DestinoData;
+import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
+
 /**
  *
  * @author familia
@@ -14,8 +19,22 @@ public class VistaEliminarDestino extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaEliminarDestino
      */
+    
+    private DestinoData dd;
+    private Conexion con;
+    
     public VistaEliminarDestino() {
         initComponents();
+        
+        try{
+            con = new Conexion();
+            dd = new DestinoData(con);
+            
+        }catch(ClassNotFoundException error){
+            System.out.println("Error al iniciar la vista Eliminar Destino\n"+error);
+        }
+        
+        cargarDestinos();
     }
 
     /**
@@ -113,9 +132,27 @@ public class VistaEliminarDestino extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        dd.borrarDestino(Integer.parseInt(jtId.getText()));
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void cargarDestinos(){
+        
+        List<Destino> destinos = dd.obtenerDestinosActivos();
+        Destino seleccionado;
+        
+        if (!destinos.isEmpty()) {
+            for (Destino d : destinos) {
+                jcbNombre.addItem(d.getNombre());
+            }
 
+            seleccionado = dd.obtenerDestino(jcbNombre.getSelectedItem().toString());
+
+            jtId.setText("" + seleccionado.getIdDestino());
+            jtPais.setText(seleccionado.getPais());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;

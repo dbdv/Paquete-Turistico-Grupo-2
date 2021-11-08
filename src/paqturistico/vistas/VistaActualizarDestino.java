@@ -5,6 +5,11 @@
  */
 package paqturistico.vistas;
 
+import java.util.List;
+import paqturistico.control.DestinoData;
+import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
+
 /**
  *
  * @author familia
@@ -14,8 +19,23 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaActualizarDestino
      */
+    
+    private DestinoData dd;
+    private Conexion con;
+    
     public VistaActualizarDestino() {
         initComponents();
+        
+        try{
+            con = new Conexion();
+            dd = new DestinoData(con);
+            
+            llenarDestinos();
+            
+        }catch(ClassNotFoundException error){
+            System.out.println("Error al iniciar la vista Actualizar Destino\n"+error);
+        }
+        
     }
 
     /**
@@ -37,6 +57,14 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jtNombre = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+
+        jcbNombre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbNombreItemStateChanged(evt);
+            }
+        });
 
         jtId.setEditable(false);
 
@@ -58,6 +86,8 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel5.setText("Actualizar Destino");
 
+        jLabel6.setText("Nombre:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,24 +95,26 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(223, 223, 223)
+                        .addComponent(btnActualizar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(123, 123, 123)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6))
                         .addGap(90, 90, 90)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtNombre)
                             .addComponent(jcActivo)
                             .addComponent(jcbNombre, 0, 175, Short.MAX_VALUE)
                             .addComponent(jtPais)
-                            .addComponent(jtId)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(btnActualizar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(jLabel5)))
+                            .addComponent(jtId))))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -90,11 +122,15 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -117,9 +153,47 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        if(!jtId.getText().isEmpty()){
+            Destino destino = new Destino();
+            
+            destino.setIdDestino(Integer.parseInt(jtId.getText()));
+            destino.setNombre(jtNombre.getText());
+            destino.setPais(jtPais.getText());
+            destino.setActivo(jcActivo.isSelected());
+            
+            dd.actualizarDestino(destino);
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void jcbNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbNombreItemStateChanged
+        // TODO add your handling code here:
+        Destino destino = dd.obtenerDestino(jcbNombre.getSelectedItem().toString());
+        jtNombre.setText(destino.getNombre());
+        jtId.setText("" + destino.getIdDestino());
+        jtPais.setText(destino.getPais());
+        jcActivo.setSelected(destino.isActivo());
+    }//GEN-LAST:event_jcbNombreItemStateChanged
 
+    private void llenarDestinos(){
+        
+        List<Destino> destinos = dd.obtenerDestinos();
+        Destino destino;
+        
+        if(!destinos.isEmpty()){
+            for(Destino d: destinos){
+                jcbNombre.addItem(d.getNombre());
+            }
+            
+            destino = dd.obtenerDestino(jcbNombre.getSelectedItem().toString());
+            jtNombre.setText(destino.getNombre());
+            jtId.setText(""+destino.getIdDestino());
+            jtPais.setText(destino.getPais());
+            jcActivo.setSelected(destino.isActivo());
+            
+        }
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JLabel jLabel1;
@@ -127,9 +201,11 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JCheckBox jcActivo;
     private javax.swing.JComboBox<String> jcbNombre;
     private javax.swing.JTextField jtId;
+    private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtPais;
     // End of variables declaration//GEN-END:variables
 }

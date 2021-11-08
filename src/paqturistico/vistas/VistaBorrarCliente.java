@@ -176,13 +176,11 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
     private void llenarCombo(){
         List <Cliente> clientes = cd.obtenerClientesActivos();
        
-        
-        for(Cliente c:clientes){
-           jcbCombo.addItem(c.getNombre());
+        if (!clientes.isEmpty()) {
+            for (Cliente c : clientes) {
+                jcbCombo.addItem(c.getNombre());
+            }
         }
-       
-        
-        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
