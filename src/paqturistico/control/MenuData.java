@@ -83,7 +83,7 @@ public class MenuData {
         List<Menu> m = new ArrayList<>();
         Menu menu = new Menu();
         Alojamiento al;
-        String sql ="SELECT * FROM menu,alojamiento WHERE alojamiento.nombre= ? AND menu.idAlojamiento = alojamiento.idAlojamiento AND alojamiento.activo = 1 and menu.activo=1;";
+        String sql ="SELECT menu.* FROM menu,alojamiento WHERE alojamiento.nombre= ? AND menu.idAlojamiento = alojamiento.idAlojamiento AND alojamiento.activo = 1 and menu.activo=1;";
         
         try{
             

@@ -5,17 +5,49 @@
  */
 package paqturistico.vistas;
 
+import java.util.List;
+import paqturistico.control.AlojamientoData;
+import paqturistico.control.ClienteData;
+import paqturistico.control.DestinoData;
+import paqturistico.control.MenuData;
+import paqturistico.control.TransporteData;
+import paqturistico.modelo.Alojamiento;
+import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
+import paqturistico.modelo.Menu;
+import paqturistico.modelo.Transporte;
+
 /**
  *
  * @author Usuario
  */
 public class VistaArmarPaquete extends javax.swing.JInternalFrame {
+    
+    private Conexion con;
+    private DestinoData dd;
+    private AlojamientoData ad;
+    private MenuData md;
+    private TransporteData td;
+    private ClienteData cd;
 
     /**
      * Creates new form VistaArmarPaquete
      */
     public VistaArmarPaquete() {
         initComponents();
+        
+        try{
+            con = new Conexion();
+            dd = new DestinoData(con);
+            ad = new AlojamientoData(con);
+            md = new MenuData(con);
+            td = new TransporteData(con);
+            cd = new ClienteData(con);
+            
+            cargarDestinos();
+        }catch(ClassNotFoundException error){
+            System.out.println("No se pudo realizar la conexion en la vista armar paquete\n" + error);
+        }
     }
 
     /**
@@ -101,7 +133,30 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
 
         jbLimpiar.setText("Limpiar");
 
+        jcbDestino.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbDestinoItemStateChanged(evt);
+            }
+        });
+
+        jcbAlojamiento.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                jcbAlojamientoComponentRemoved(evt);
+            }
+        });
+        jcbAlojamiento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbAlojamientoItemStateChanged(evt);
+            }
+        });
+
         jcbCantPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        jtId.setEditable(false);
+
+        jtDni.setEditable(false);
+
+        jtMail.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,6 +296,82 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         // TODO add your handling code here:        
     }//GEN-LAST:event_jbCalcularActionPerformed
 
+    private void jcbDestinoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbDestinoItemStateChanged
+        // TODO add your handling code here:
+        Destino destino;
+        Transporte transporte;
+        List<Alojamiento> alojamientos;
+        List<Transporte> transportes;
+                
+        if(jcbDestino.getSelectedIndex() == 0){
+            
+            
+            jcbAlojamiento.removeAllItems();
+            jcbMenu.removeAllItems();
+            jcbTransporte.removeAllItems();
+            
+            jcbAlojamiento.addItem("Seleccione un alojamiento");
+            jcbMenu.addItem("Seleccione un menu");
+            jcbTransporte.addItem("Seleccione un transporte");
+        }else{
+            
+            destino = dd.obtenerDestino(jcbDestino.getSelectedItem().toString());
+            alojamientos = ad.obtenerAlojPorDestino(destino.getNombre());
+            transportes = td.obtenerTransportesPorDestino(destino.getNombre());
+            
+            if (!alojamientos.isEmpty()) {
+                for (Alojamiento a : alojamientos) {
+                    jcbAlojamiento.addItem(a.getNombre());
+                }
+            }
+            
+            if(!transportes.isEmpty()){
+                for(Transporte t: transportes){
+                    jcbTransporte.addItem(t.getTipo());
+                }
+            }
+        }
+    }//GEN-LAST:event_jcbDestinoItemStateChanged
+
+    private void jcbAlojamientoComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jcbAlojamientoComponentRemoved
+        // TODO add your handling code here:
+        jcbMenu.removeAllItems();
+        jcbMenu.addItem("Seleccione un menu");
+    }//GEN-LAST:event_jcbAlojamientoComponentRemoved
+
+    private void jcbAlojamientoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlojamientoItemStateChanged
+        // TODO add your handling code here:
+        List<Menu> menus;
+        Alojamiento alojamiento;
+        
+        if(jcbMenu.getSelectedIndex() != 0){
+            alojamiento = ad.obtenerAlojamiento(jcbAlojamiento.getItemAt(jcbAlojamiento.getSelectedIndex()));
+            menus = md.obtenerMenuPorAlojamiento(alojamiento.getNombre());
+            
+            for(Menu m: menus){
+                jcbMenu.addItem(m.getTipo());
+            }
+        }
+    }//GEN-LAST:event_jcbAlojamientoItemStateChanged
+    
+    private void cargarDestinos(){
+        
+        List<Destino> destinos = dd.obtenerDestinosActivos();
+        
+        jcbDestino.addItem("Seleccione un destino");
+        jcbAlojamiento.addItem("Seleccione un alojamiento");
+        jcbCliente.addItem("Seleccione un cliente");
+        jcbMenu.addItem("Seleccione un menu");
+        jcbTransporte.addItem("Seleccione un transporte");
+        
+        if (!destinos.isEmpty()) {
+            for (Destino d : destinos) {
+                jcbDestino.addItem(d.getNombre());
+            }
+        }
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser jDateDesde;

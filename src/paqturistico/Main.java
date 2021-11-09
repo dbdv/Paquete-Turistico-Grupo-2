@@ -63,8 +63,7 @@ public class Main {
             //Destino mendoza = dd.obtenerDestino("mendoza");
             //System.out.println(mendoza.toString());
             
-            List<Destino> destinos = dd.obtenerDestinos();
-            System.out.println(destinos.toString());
+            
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

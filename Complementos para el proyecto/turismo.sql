@@ -2,8 +2,8 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2021 a las 22:01:20
+-- Servidor: localhost
+-- Tiempo de generación: 09-11-2021 a las 21:57:14
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -36,6 +36,13 @@ CREATE TABLE `alojamiento` (
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `alojamiento`
+--
+
+INSERT INTO `alojamiento` (`idAlojamiento`, `nombre`, `tipo`, `precio`, `idDestino`, `activo`) VALUES
+(1, 'Prueba 1', 'tipo 1', 500, 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +57,14 @@ CREATE TABLE `cliente` (
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`idCliente`, `nombre`, `dni`, `mail`, `activo`) VALUES
+(1, 'pepe', 65456555, 'pepepepepepe', 1),
+(2, 'jesus', 54354353, 'vjkdjdjdjd', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -59,8 +74,17 @@ CREATE TABLE `cliente` (
 CREATE TABLE `destino` (
   `idDestino` int(11) NOT NULL,
   `nombre` varchar(25) NOT NULL,
-  `pais` varchar(20) NOT NULL
+  `pais` varchar(20) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `destino`
+--
+
+INSERT INTO `destino` (`idDestino`, `nombre`, `pais`, `activo`) VALUES
+(1, 'La Carolina, San Luis', 'Argentina', 0),
+(2, 'San Francisco, San Luis', 'Argentina', 1);
 
 -- --------------------------------------------------------
 
@@ -75,6 +99,14 @@ CREATE TABLE `menu` (
   `idAlojamiento` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `menu`
+--
+
+INSERT INTO `menu` (`idMenu`, `tipo`, `precio`, `idAlojamiento`, `activo`) VALUES
+(1, 'Completo', 400, 1, 1),
+(2, 'Medio', 200, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -108,6 +140,14 @@ CREATE TABLE `transporte` (
   `idDestino` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `transporte`
+--
+
+INSERT INTO `transporte` (`idTransporte`, `tipo`, `precio`, `idDestino`, `activo`) VALUES
+(1, 'Avion', 1000, 2, 1),
+(2, 'Colectivo', 300, 2, 1);
 
 --
 -- Índices para tablas volcadas
@@ -166,25 +206,25 @@ ALTER TABLE `transporte`
 -- AUTO_INCREMENT de la tabla `alojamiento`
 --
 ALTER TABLE `alojamiento`
-  MODIFY `idAlojamiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAlojamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `destino`
 --
 ALTER TABLE `destino`
-  MODIFY `idDestino` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDestino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `idMenu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `paquete`
@@ -196,7 +236,7 @@ ALTER TABLE `paquete`
 -- AUTO_INCREMENT de la tabla `transporte`
 --
 ALTER TABLE `transporte`
-  MODIFY `idTransporte` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTransporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

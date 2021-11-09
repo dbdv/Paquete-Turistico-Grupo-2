@@ -109,8 +109,8 @@ public class TransporteData {
     public List<Transporte> obtenerTransportesPorDestino(String destino){
         List<Transporte> trans = new ArrayList<>();
         Transporte t = new Transporte();
-        Destino d = new Destino();        
-        String sql ="SELECT * FROM transporte, destino WHERE destino.nombre= ? AND transporte.idDestino = destino.idDestino AND destino.activo = 1 AND transporte.activo=1;";
+        Destino d;        
+        String sql ="SELECT transporte.* FROM transporte, destino WHERE destino.nombre= ? AND transporte.idDestino = destino.idDestino AND destino.activo = 1 AND transporte.activo=1;";
         
         try{
             
@@ -120,7 +120,9 @@ public class TransporteData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                
                 d = buscarDestino(rs.getInt("idDestino"));
+                
                 t.setIdTransporte(rs.getInt("idTransporte"));
                 t.setTipo(rs.getString("tipo"));
                 t.setPrecio(rs.getInt("precio"));

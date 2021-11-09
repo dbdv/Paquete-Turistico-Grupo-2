@@ -143,7 +143,7 @@ public class AlojamientoData {
         List<Alojamiento> alojamientos = new ArrayList<>();
         Alojamiento alojamiento = new Alojamiento();
         Destino dest;
-        String sql ="SELECT * FROM alojamiento, destino WHERE destino.nombre = ? AND destino.idDestino = alojamiento.idDestino AND alojamiento.activo = 1;";
+        String sql ="SELECT alojamiento.* FROM alojamiento, destino WHERE destino.nombre = ? AND destino.idDestino = alojamiento.idDestino AND alojamiento.activo = 1;";
         
         try{
             
