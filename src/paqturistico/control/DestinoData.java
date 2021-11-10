@@ -129,7 +129,7 @@ public class DestinoData {
     public List<Destino> obtenerDestinos(){
         
         List<Destino> destinos = new ArrayList<>();
-        Destino destino = new Destino();
+        Destino destino;
         String sql = "SELECT * FROM destino;";
         
         try{
@@ -138,6 +138,9 @@ public class DestinoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                
+                destino = new Destino();
+                
                 destino.setIdDestino(rs.getInt("idDestino"));
                 destino.setNombre(rs.getString("nombre"));
                 destino.setPais(rs.getString("pais"));
@@ -156,7 +159,7 @@ public class DestinoData {
     public List<Destino> obtenerDestinosActivos(){
         
         List<Destino> destinos = new ArrayList<>();
-        Destino destino = new Destino();
+        Destino destino;
         String sql = "SELECT * FROM destino WHERE activo = 1;";
         
         try{
@@ -165,6 +168,9 @@ public class DestinoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                
+                destino = new Destino();
+                
                 destino.setIdDestino(rs.getInt("idDestino"));
                 destino.setNombre(rs.getString("nombre"));
                 destino.setPais(rs.getString("pais"));

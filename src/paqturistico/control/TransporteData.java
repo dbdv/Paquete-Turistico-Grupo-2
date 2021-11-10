@@ -82,7 +82,7 @@ public class TransporteData {
     }
     public List<Transporte> obtenerTransportes (){
         List<Transporte> trans = new ArrayList<>();
-        Transporte t = new Transporte();
+        Transporte t;
         Destino d = new Destino(); 
         String sql ="SELECT * FROM transporte WHERE transporte.activo=1;";
         
@@ -91,6 +91,7 @@ public class TransporteData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                t = new Transporte();
                 d = buscarDestino(rs.getInt("idDestino"));
                 t.setIdTransporte(rs.getInt("idTransporte"));
                 t.setTipo(rs.getString("tipo"));
@@ -108,7 +109,7 @@ public class TransporteData {
     }
     public List<Transporte> obtenerTransportesPorDestino(String destino){
         List<Transporte> trans = new ArrayList<>();
-        Transporte t = new Transporte();
+        Transporte t;
         Destino d;        
         String sql ="SELECT transporte.* FROM transporte, destino WHERE destino.nombre= ? AND transporte.idDestino = destino.idDestino AND destino.activo = 1 AND transporte.activo=1;";
         
@@ -122,6 +123,8 @@ public class TransporteData {
             while(rs.next()){
                 
                 d = buscarDestino(rs.getInt("idDestino"));
+                
+                t = new Transporte();
                 
                 t.setIdTransporte(rs.getInt("idTransporte"));
                 t.setTipo(rs.getString("tipo"));

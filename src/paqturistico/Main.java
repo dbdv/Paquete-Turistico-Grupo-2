@@ -18,6 +18,7 @@ import paqturistico.control.TransporteData;
 import paqturistico.modelo.Alojamiento;
 import paqturistico.modelo.Conexion;
 import paqturistico.modelo.Destino;
+import paqturistico.modelo.Menu;
 
 /**
  *
@@ -63,7 +64,13 @@ public class Main {
             //Destino mendoza = dd.obtenerDestino("mendoza");
             //System.out.println(mendoza.toString());
             
+            List<Alojamiento> alojamientos = ad.obtenerAlojPorDestino("San Francisco, San Luis");
             
+            //System.out.println(alojamientos);
+            
+            List<Menu> menus = md.obtenerMenuPorAlojamiento("Prueba 1");
+            
+            //System.out.println(menus);
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

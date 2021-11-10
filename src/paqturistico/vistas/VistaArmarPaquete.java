@@ -139,11 +139,6 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             }
         });
 
-        jcbAlojamiento.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentRemoved(java.awt.event.ContainerEvent evt) {
-                jcbAlojamientoComponentRemoved(evt);
-            }
-        });
         jcbAlojamiento.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbAlojamientoItemStateChanged(evt);
@@ -315,6 +310,12 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             jcbTransporte.addItem("Seleccione un transporte");
         }else{
             
+            jcbAlojamiento.removeAllItems();
+            jcbTransporte.removeAllItems();
+            
+             jcbAlojamiento.addItem("Seleccione un alojamiento");
+            jcbTransporte.addItem("Seleccione un transporte");
+            
             destino = dd.obtenerDestino(jcbDestino.getSelectedItem().toString());
             alojamientos = ad.obtenerAlojPorDestino(destino.getNombre());
             transportes = td.obtenerTransportesPorDestino(destino.getNombre());
@@ -333,24 +334,10 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jcbDestinoItemStateChanged
 
-    private void jcbAlojamientoComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jcbAlojamientoComponentRemoved
-        // TODO add your handling code here:
-        jcbMenu.removeAllItems();
-        jcbMenu.addItem("Seleccione un menu");
-    }//GEN-LAST:event_jcbAlojamientoComponentRemoved
-
     private void jcbAlojamientoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlojamientoItemStateChanged
         // TODO add your handling code here:
-        List<Menu> menus;
-        Alojamiento alojamiento;
-        
-        if(jcbMenu.getSelectedIndex() != 0){
-            alojamiento = ad.obtenerAlojamiento(jcbAlojamiento.getItemAt(jcbAlojamiento.getSelectedIndex()));
-            menus = md.obtenerMenuPorAlojamiento(alojamiento.getNombre());
-            
-            for(Menu m: menus){
-                jcbMenu.addItem(m.getTipo());
-            }
+        if(jcbAlojamiento.getSelectedIndex() != 0 && jcbAlojamiento.getComponentCount() > 1){
+            cargarMenus();
         }
     }//GEN-LAST:event_jcbAlojamientoItemStateChanged
     
@@ -371,6 +358,23 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         }
         
         
+    }
+    
+    private void cargarMenus(){
+        
+        if (jcbAlojamiento.getItemCount() > 1) {
+            
+            jcbMenu.removeAllItems();
+            jcbMenu.addItem("Seleccione un menu");
+
+            List<Menu> menus = md.obtenerMenuPorAlojamiento(jcbAlojamiento.getSelectedItem().toString());
+
+            if (!menus.isEmpty()) {
+                for (Menu m : menus) {
+                    jcbMenu.addItem(m.getTipo());
+                }
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

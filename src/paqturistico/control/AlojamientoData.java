@@ -105,8 +105,9 @@ public class AlojamientoData {
         
         Alojamiento alojamiento = new Alojamiento();        
         Destino destino;
-        String sql = "SELECT * FROM alojamiento WHERE nombre=? ";
+        String sql = "SELECT * FROM alojamiento WHERE nombre=?;";
         PreparedStatement ps;
+        
         try{
              ps = con.prepareStatement(sql);
             
@@ -115,8 +116,13 @@ public class AlojamientoData {
             
             ResultSet rs = ps.executeQuery();
             
+            //if(rs.next())
+              //  System.out.println(buscarDestino(rs.getInt(5)));
+            
             if(rs.next()){                
-                destino = buscarDestino(rs.getInt("idDestino"));               
+                
+                destino = buscarDestino(rs.getInt("idDestino"));
+                
                 alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
                 alojamiento.setNombre(rs.getString("nombre"));
                 alojamiento.setTipo(rs.getString("tipo"));
@@ -141,7 +147,7 @@ public class AlojamientoData {
     public List<Alojamiento> obtenerAlojPorDestino(String destino){
         
         List<Alojamiento> alojamientos = new ArrayList<>();
-        Alojamiento alojamiento = new Alojamiento();
+        Alojamiento alojamiento;
         Destino dest;
         String sql ="SELECT alojamiento.* FROM alojamiento, destino WHERE destino.nombre = ? AND destino.idDestino = alojamiento.idDestino AND alojamiento.activo = 1;";
         
@@ -153,7 +159,10 @@ public class AlojamientoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                dest = buscarDestino(rs.getInt("idDestino"));  
+                dest = buscarDestino(rs.getInt("idDestino"));
+                
+                alojamiento = new Alojamiento();
+                
                 alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
                 alojamiento.setNombre(rs.getString("nombre"));
                 alojamiento.setTipo(rs.getString("tipo"));

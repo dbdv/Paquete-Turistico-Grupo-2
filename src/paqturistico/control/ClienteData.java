@@ -154,7 +154,7 @@ public class ClienteData {
     
     public List<Cliente> obtenerClientes(){
         List<Cliente> clientes = new ArrayList<>();
-        Cliente c = null;
+        Cliente c;
 
         String sql = "SELECT * FROM cliente";
         PreparedStatement ps;
@@ -185,7 +185,7 @@ public class ClienteData {
     
     public List<Cliente> obtenerClientesActivos(){
         List<Cliente> clientes = new ArrayList<>();
-        Cliente c = null;
+        Cliente c;
 
         String sql = "SELECT * FROM cliente WHERE cliente.activo=true";
         PreparedStatement ps;
@@ -215,7 +215,7 @@ public class ClienteData {
     
     public List<Cliente> obtenerClientesInactivos(){
         List<Cliente> clientes = new ArrayList<>();
-        Cliente c = null;
+        Cliente c;
 
         String sql = "SELECT * FROM cliente WHERE cliente.activo=false";
         PreparedStatement ps;
