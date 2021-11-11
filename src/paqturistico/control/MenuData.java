@@ -121,4 +121,33 @@ public class MenuData {
         return ad.buscarAlojamiento(id);
 
     }
+      public Menu obtenerMenu(String tipo){
+        Alojamiento a;
+       Menu m=new Menu();
+        String sql = "SELECT * FROM menu WHERE tipo = ?";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, tipo);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                a= buscarAlojamiento(rs.getInt("idAlojamiento"));
+                m.setIdMenu(rs.getInt("idMenu"));
+                m.setTipo(rs.getString("tipo"));
+                m.setPrecio(rs.getInt("precio"));
+                m.setIdAlojamiento(a);
+                m.setActivo(rs.getBoolean("activo"));
+             
+                
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al buscar menu " + sqlE);
+        }
+        
+        return m;
+    }
 }
