@@ -11,8 +11,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import paqturistico.modelo.Alojamiento;
+import paqturistico.modelo.Cliente;
 import paqturistico.modelo.Conexion;
+import paqturistico.modelo.Destino;
+import paqturistico.modelo.Menu;
 import paqturistico.modelo.Paquete;
+import paqturistico.modelo.Transporte;
 
 /**
  *
@@ -20,9 +27,11 @@ import paqturistico.modelo.Paquete;
  */
 public class PaqueteData {
     private Connection con;
+    private Conexion conexion;
 
     public PaqueteData(Conexion conexion) {
         try {
+            this.conexion=conexion;
             this.con = conexion.getConexion();
             System.out.println("Conectado");
         } catch (SQLException ex) {
@@ -77,6 +86,79 @@ public class PaqueteData {
         }catch(SQLException sqlE){
             System.out.println("Error al borrar\n"+sqlE);
         }
+    }
+    
+    public List<Paquete> obtenerPaquetes(){
+        
+        List<Paquete> paquetes = new ArrayList<>();
+        Paquete paquete;
+        
+        Cliente cliente=new Cliente();
+        Alojamiento alojamiento=new Alojamiento();
+        Menu menu = new Menu();
+        Transporte trans = new Transporte();
+        
+        String sql = "SELECT * FROM paquete WHERE activo = 1;";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                paquete = new Paquete();
+                cliente = buscarCliente(rs.getInt("idCliente"));
+                alojamiento = buscarAlojamiento(rs.getInt("idAlojamiento"));
+                menu = buscarMenu(rs.getInt("idMenu"));
+                trans = buscarTransporte(rs.getInt("idTransporte"));
+                paquete.setIdPaquete(rs.getInt("idPaquete"));
+                paquete.setIdCliente(cliente);
+                paquete.setIdAlojamiento(alojamiento);
+                paquete.setIdMenu(menu);
+                paquete.setFechaDesde(rs.getDate("fechaDesde").toLocalDate());
+                paquete.setFechaHasta(rs.getDate("fechaHasta").toLocalDate());
+                paquete.setIdTransporte(trans);
+                paquete.setPrecioFinal(rs.getInt("precioFinal"));
+                paquete.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                paquete.setActivo(true);
+                
+                
+                
+                
+                paquetes.add(paquete);
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al buscar paquete" + sqlE);
+        }
+        
+        return paquetes;
+    }
+    public Alojamiento buscarAlojamiento(int id) {        
+        AlojamientoData dd = new AlojamientoData(conexion);
+        return dd.buscarAlojamiento(id);   
+
+    }
+    public Destino buscarDestino(int id) {        
+        DestinoData dd = new DestinoData(conexion);
+        return dd.buscarDestino(id);   
+
+    }
+    public Cliente buscarCliente(int id) {        
+        ClienteData dd = new ClienteData(conexion);
+        return dd.buscarCliente(id);   
+
+    }
+    public Menu buscarMenu(int id) {        
+        MenuData dd = new MenuData(conexion);
+        return dd.buscarMenu(id);   
+
+    }
+    public Transporte buscarTransporte(int id) {        
+        TransporteData dd = new TransporteData(conexion);
+        return dd.buscarTransporte(id);   
+
     }
 
 }

@@ -176,4 +176,33 @@ public class TransporteData {
         
         return t;
     }
+       
+    public Transporte buscarTransporte(int id){
+        Destino d;
+       Transporte t=new Transporte();
+        String sql = "SELECT * FROM transporte WHERE idTransporte = ? and activo=true";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+               d = buscarDestino(rs.getInt("idDestino"));
+                t.setIdTransporte(rs.getInt("idTransporte"));
+                t.setTipo(rs.getString("tipo"));
+                t.setPrecio(rs.getInt("precio"));
+                t.setIdDestino(d);
+                t.setActivo(rs.getBoolean("activo"));
+                
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al buscar transporte " + sqlE);
+        }
+        
+        return t;
+    }
 }
