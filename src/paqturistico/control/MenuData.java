@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import paqturistico.modelo.Alojamiento;
 import paqturistico.modelo.Conexion;
 import paqturistico.modelo.Menu;
@@ -56,6 +57,8 @@ public class MenuData {
                 }
 
                 ps.close();
+                
+                JOptionPane.showMessageDialog(null, "Cargado con exito, id: "+menu.getIdMenu());
             }
         } catch (SQLException ex) {
             System.out.println("Error al insertar menu\n" + ex);

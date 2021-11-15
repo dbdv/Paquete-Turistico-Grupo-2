@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import paqturistico.modelo.Cliente;
 import paqturistico.modelo.Conexion;
 
@@ -54,6 +55,8 @@ public class ClienteData {
                 }
                 
                 ps.close();
+                
+                JOptionPane.showMessageDialog(null, "Cargado con exito, id: "+cliente.getIdCliente());
             }
         } catch (SQLException ex) {
             System.out.println("Error al insertar cliente\n" + ex);
@@ -91,6 +94,8 @@ public class ClienteData {
             System.out.println("Cliente " + cliente.getNombre() + ", actualizado correctamente.");
 
             ps.close();
+            
+            JOptionPane.showMessageDialog(null, "Actualizado con exito, id: "+cliente.getIdCliente());
         } catch (SQLException ex) {
             System.out.println("Error al actualizar el cliente"+ex);
         }

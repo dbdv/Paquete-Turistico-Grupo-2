@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import paqturistico.modelo.Conexion;
 import paqturistico.modelo.Destino;
 
@@ -58,6 +59,8 @@ public class DestinoData {
                 }
                 
                 ps.close();
+                
+                JOptionPane.showMessageDialog(null, "Cargado con exito, id: "+dest.getIdDestino());
             }
         } catch (SQLException ex) {
             System.out.println("Error al insertar destino\n" + ex);
@@ -195,7 +198,7 @@ public class DestinoData {
          try{   
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            ps.execute();
+            //ps.execute();
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -226,6 +229,8 @@ public class DestinoData {
               ps.setInt(4, destino.getIdDestino());
               
               ps.executeUpdate();
+              
+              JOptionPane.showMessageDialog(null, "Actualizado con exito, id: "+destino.getIdDestino());
               
           }catch(SQLException error){
               System.out.println("error al actualizar destino \n"+error);

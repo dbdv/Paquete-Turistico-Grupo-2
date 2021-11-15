@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import paqturistico.modelo.Alojamiento;
 import paqturistico.modelo.Conexion;
 import paqturistico.modelo.Destino;
@@ -55,7 +56,7 @@ public class AlojamientoData {
                     //cliente.setIdCliente(1);
                     alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
                     System.out.println("id del alojamiento: " + alojamiento.getIdAlojamiento());
-                    
+                    JOptionPane.showMessageDialog(null, "Cargado con exito, id: "+alojamiento.getIdAlojamiento());
                 }
                 
                 ps.close();
@@ -96,6 +97,8 @@ public class AlojamientoData {
 
             ps.executeUpdate();
             ps.close();
+            
+            JOptionPane.showMessageDialog(null, "Alojamiento actualizado exitosamente.");
         }catch(SQLException sqlE){
             System.out.println("error al actualizar + sqlE");
         }
@@ -142,6 +145,49 @@ public class AlojamientoData {
         }
         
         return alojamiento;        
+    }
+    
+    public List<Alojamiento> obtenerAlojamientosActivos(){
+        
+        Alojamiento alojamiento;
+        List<Alojamiento> alojamientos = new ArrayList<>();
+        Destino destino;
+        String sql = "SELECT * FROM alojamiento WHERE activo=1;";
+        PreparedStatement ps;
+        
+        try{
+             ps = con.prepareStatement(sql);
+            
+            
+            ResultSet rs = ps.executeQuery();
+            
+            
+            
+            while(rs.next()){                
+                
+                alojamiento = new Alojamiento();
+                destino = buscarDestino(rs.getInt("idDestino"));
+                
+                alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
+                alojamiento.setNombre(rs.getString("nombre"));
+                alojamiento.setTipo(rs.getString("tipo"));
+                alojamiento.setActivo(rs.getBoolean("activo"));
+                alojamiento.setPrecio(rs.getInt("precio"));
+                alojamiento.setIdDestino(destino);
+                
+                alojamientos.add(alojamiento);
+                
+                
+            }
+            
+            rs.close();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al obtener alojamiento" + sqlE);
+        }
+        
+        return alojamientos;        
     }
     
     public List<Alojamiento> obtenerAlojPorDestino(String destino){

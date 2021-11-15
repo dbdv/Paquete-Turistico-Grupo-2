@@ -42,6 +42,9 @@ public class Principal extends javax.swing.JFrame {
         miActualizarDestino = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jmAgregarAlojamiento = new javax.swing.JMenuItem();
+        jmActualizarAlojamiento = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -57,7 +60,7 @@ public class Principal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
+            .addGap(0, 619, Short.MAX_VALUE)
         );
 
         jMenu2.setText("Clientes");
@@ -126,6 +129,26 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu5.setText("Transporte");
         jMenuBar1.add(jMenu5);
+
+        jMenu7.setText("Alojamientos");
+
+        jmAgregarAlojamiento.setText("Agregar alojamiento");
+        jmAgregarAlojamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAgregarAlojamientoActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jmAgregarAlojamiento);
+
+        jmActualizarAlojamiento.setText("Actualizar alojamiento");
+        jmActualizarAlojamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmActualizarAlojamientoActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jmActualizarAlojamiento);
+
+        jMenuBar1.add(jMenu7);
 
         jMenu6.setText("Paquete");
 
@@ -241,6 +264,30 @@ public class Principal extends javax.swing.JFrame {
         escritorio.moveToFront(vap);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jmAgregarAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAgregarAlojamientoActionPerformed
+        // TODO add your handling code here:
+        VistaAgregarAlojamiento vaa = new VistaAgregarAlojamiento();
+        vaa.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        escritorio.add(vaa);
+        escritorio.moveToFront(vaa);
+    }//GEN-LAST:event_jmAgregarAlojamientoActionPerformed
+
+    private void jmActualizarAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmActualizarAlojamientoActionPerformed
+        // TODO add your handling code here:
+        VistaActualizarAlojamiento vaa = new VistaActualizarAlojamiento();
+        vaa.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        escritorio.add(vaa);
+        escritorio.moveToFront(vaa);
+    }//GEN-LAST:event_jmActualizarAlojamientoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,9 +331,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jmActualizarAlojamiento;
     private javax.swing.JMenuItem jmActualizarCliente;
+    private javax.swing.JMenuItem jmAgregarAlojamiento;
     private javax.swing.JMenuItem jmAgregarCliente;
     private javax.swing.JMenuItem jmBorrarCliente;
     private javax.swing.JMenuItem miActualizarDestino;
