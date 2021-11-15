@@ -326,22 +326,26 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         Transporte t;
         int cp;
     
-        
-         
+          if(jcbAlojamiento.getSelectedIndex() == 0 || jcbCliente.getSelectedIndex()== 0 || jcbDestino.getSelectedIndex() == 0 || jcbMenu.getSelectedIndex() == 0 ||
+     jcbTransporte.getSelectedIndex() == 0) {
+
+            JOptionPane.showMessageDialog(this, "No ha seleccionado todos los datos necesarios");
+        } else {
+
             a = ad.obtenerAlojamiento(jcbAlojamiento.getSelectedItem().toString());
             t = td.obtenerTransporte(jcbTransporte.getSelectedItem().toString());
-            m= md.obtenerMenu(jcbMenu.getSelectedItem().toString());
-            cp= jcbCantPersonas.getSelectedIndex();
-            c= cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
-          LocalDate FD= new java.sql.Date(jDateDesde.getDate().getTime()).toLocalDate();
-           LocalDate FH= new java.sql.Date(jDateHasta.getDate().getTime()).toLocalDate();
-            
-            Paquete p= new Paquete(c,a,m,t,FD,FH,cp,true);
-            
-         jtCostoTotal.setText(p.calcularPrecioFinal()+"");
-         
-            
-            
+            m = md.obtenerMenu(jcbMenu.getSelectedItem().toString());
+            cp = jcbCantPersonas.getSelectedIndex();
+            c = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
+            LocalDate FD = new java.sql.Date(jDateDesde.getDate().getTime()).toLocalDate();
+            LocalDate FH = new java.sql.Date(jDateHasta.getDate().getTime()).toLocalDate();
+
+            Paquete p = new Paquete(c, a, m, t, FD, FH, cp, true);
+
+            jtCostoTotal.setText(p.calcularPrecioFinal() + "");
+
+        }
+
             
     }//GEN-LAST:event_jbCalcularActionPerformed
 
