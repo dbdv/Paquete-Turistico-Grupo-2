@@ -59,6 +59,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             
             cargarDestinos();
             cargarClientes();
+            
         }catch(ClassNotFoundException error){
             System.out.println("No se pudo realizar la conexion en la vista armar paquete\n" + error);
         }
@@ -151,6 +152,11 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         });
 
         jbLimpiar.setText("Limpiar");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
 
         jcbDestino.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -164,7 +170,13 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             }
         });
 
-        jcbCantPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione cantidad de personas", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jcbCantPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        jcbCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbClienteItemStateChanged(evt);
+            }
+        });
 
         jtId.setEditable(false);
 
@@ -252,8 +264,8 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
                     .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -281,7 +293,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -293,13 +305,13 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(jDateHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbCalcular)
                     .addComponent(jLabel10)
                     .addComponent(jtCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCrearPaquete))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -385,33 +397,57 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
 
     private void jbCrearPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearPaqueteActionPerformed
         // TODO add your handling code here:
-             Cliente c;
-      
+        Cliente c;
+
         Alojamiento a;
         Menu m;
         Transporte t;
         int cp;
-    
-        
-         
+
+        if(jcbAlojamiento.getSelectedIndex() == 0 || jcbCliente.getSelectedIndex()== 0 || jcbDestino.getSelectedIndex() == 0 || jcbMenu.getSelectedIndex() == 0 ||
+         jcbTransporte.getSelectedIndex() == 0) {
+
+            JOptionPane.showMessageDialog(this, "No ha seleccionado todos los datos necesarios");
+        } else {
             a = ad.obtenerAlojamiento(jcbAlojamiento.getSelectedItem().toString());
             t = td.obtenerTransporte(jcbTransporte.getSelectedItem().toString());
-            m= md.obtenerMenu(jcbMenu.getSelectedItem().toString());
-            cp= jcbCantPersonas.getSelectedIndex();
-            c= cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
-          LocalDate FD= new java.sql.Date(jDateDesde.getDate().getTime()).toLocalDate();
-           LocalDate FH= new java.sql.Date(jDateHasta.getDate().getTime()).toLocalDate();
-            
-            Paquete p= new Paquete(c,a,m,t,FD,FH,cp,true);
-            
-           pd.guardarPaquete(p);
-          JOptionPane.showMessageDialog(this, "Paquete creado con éxito");
-            
-        
-        
+            m = md.obtenerMenu(jcbMenu.getSelectedItem().toString());
+            cp = jcbCantPersonas.getSelectedIndex();
+            c = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
+            LocalDate FD = new java.sql.Date(jDateDesde.getDate().getTime()).toLocalDate();
+            LocalDate FH = new java.sql.Date(jDateHasta.getDate().getTime()).toLocalDate();
+
+            Paquete p = new Paquete(c, a, m, t, FD, FH, cp, true);
+
+            pd.guardarPaquete(p);
+            JOptionPane.showMessageDialog(this, "Paquete creado con éxito");
+
+        }
         
         
     }//GEN-LAST:event_jbCrearPaqueteActionPerformed
+
+    private void jcbClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbClienteItemStateChanged
+        // TODO add your handling code here:
+        Cliente cliente;
+        
+        if(jcbCliente.getSelectedIndex() == 0){
+            jtId.setText((""));
+            jtDni.setText("");
+            jtMail.setText("");
+        }else{
+            cliente = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
+            
+            jtDni.setText(""+cliente.getDni());
+            jtId.setText(""+cliente.getIdCliente());
+            jtMail.setText(cliente.getMail());
+        }
+    }//GEN-LAST:event_jcbClienteItemStateChanged
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        // TODO add your handling code here:
+        jcbCliente.setSelectedIndex(0);
+    }//GEN-LAST:event_jbLimpiarActionPerformed
     
     private void cargarDestinos(){
         
