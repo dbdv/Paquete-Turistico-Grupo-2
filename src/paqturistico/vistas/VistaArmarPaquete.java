@@ -40,7 +40,12 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
     private TransporteData td;
     private ClienteData cd;
     private PaqueteData pd;
-  
+    LocalDate localDate = LocalDate.now();    
+    LocalDate localDate2 = LocalDate.now().plusDays(1);
+    
+    //ZoneId defaultZoneId = ZoneId.systemDefault();
+    Date date = java.sql.Date.valueOf(localDate);
+    Date date2 = java.sql.Date.valueOf(localDate2);
 
     /**
      * Creates new form VistaArmarPaquete
@@ -125,7 +130,12 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Desde:");
 
+        jDateDesde.setMinSelectableDate(date);
+
         jLabel9.setText("Hasta:");
+
+        jDateHasta.setMinSelectableDate(new java.util.Date(-62135755085213L));
+        jDateHasta.setMinSelectableDate(date2);
 
         jLabel10.setText("Costo Total:");
 
@@ -263,7 +273,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
                     .addComponent(jLabel11)
                     .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(18, 18, 18)
