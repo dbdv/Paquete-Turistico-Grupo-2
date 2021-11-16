@@ -44,6 +44,8 @@ public class Principal extends javax.swing.JFrame {
         jmAgregarMenu = new javax.swing.JMenuItem();
         jmActualizarMenu = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jmAgregarTransporte = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jmAgregarAlojamiento = new javax.swing.JMenuItem();
         jmActualizarAlojamiento = new javax.swing.JMenuItem();
@@ -147,6 +149,18 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Transporte");
+
+        jmAgregarTransporte.setText("Agregar Transporte");
+        jmAgregarTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAgregarTransporteActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmAgregarTransporte);
+
+        jMenuItem3.setText("Actualizar Transporte");
+        jMenu5.add(jMenuItem3);
+
         jMenuBar1.add(jMenu5);
 
         jMenu7.setText("Alojamientos");
@@ -331,6 +345,18 @@ public class Principal extends javax.swing.JFrame {
         escritorio.moveToFront(vam);
     }//GEN-LAST:event_jmActualizarMenuActionPerformed
 
+    private void jmAgregarTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAgregarTransporteActionPerformed
+        // TODO add your handling code here:
+        VistaAgregarTransporte vam = new VistaAgregarTransporte();
+        vam.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        escritorio.add(vam);
+        escritorio.moveToFront(vam);
+    }//GEN-LAST:event_jmAgregarTransporteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -377,12 +403,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jmActualizarAlojamiento;
     private javax.swing.JMenuItem jmActualizarCliente;
     private javax.swing.JMenuItem jmActualizarMenu;
     private javax.swing.JMenuItem jmAgregarAlojamiento;
     private javax.swing.JMenuItem jmAgregarCliente;
     private javax.swing.JMenuItem jmAgregarMenu;
+    private javax.swing.JMenuItem jmAgregarTransporte;
     private javax.swing.JMenuItem jmBorrarCliente;
     private javax.swing.JMenuItem miActualizarDestino;
     private javax.swing.JMenuItem miAgregarDestino;
