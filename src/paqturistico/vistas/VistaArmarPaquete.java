@@ -495,7 +495,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
     private void cargarClientes(){
         
       
-        List<Cliente> clientes = cd.obtenerClientes();
+        List<Cliente> clientes = cd.obtenerClientesActivos();
         Cliente cliente; 
         for(Cliente c: clientes){
             jcbCliente.addItem(c.getNombre());

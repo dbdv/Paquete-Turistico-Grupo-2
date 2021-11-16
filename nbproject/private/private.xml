@@ -3,7 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/dani/Workspace/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/VistaArmarPaquete.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/VistaActualizarAlojamiento.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/control/AlojamientoData.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/VistaActualizarTransporte.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/control/TransporteData.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/Principal.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/VistaActualizarMenu.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/control/PaqueteData.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/VistaAgregarTransporte.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/VistaAgregarMenu.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/vistas/VistaArmarPaquete.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/control/ClienteData.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/control/DestinoData.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/modelo/Destino.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/Paquete-Turistico-Grupo-2/src/paqturistico/TestLucio.java</file>
         </group>
     </open-files>
 </project-private>
