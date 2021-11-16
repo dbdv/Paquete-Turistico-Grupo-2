@@ -144,7 +144,25 @@ public class TransporteData {
         }  
         return trans;
     }
-    
+    public void actualizarTransporte(Transporte t) {
+        String sql = "UPDATE transporte SET precio = ?, activo = ? WHERE idTransporte = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, t.getPrecio());
+            ps.setBoolean(2, t.isActivo());
+            
+            ps.setInt(3, t.getIdTransporte());
+            
+
+            ps.executeUpdate();
+            ps.close();
+            
+            JOptionPane.showMessageDialog(null, "Transporte actualizado exitosamente.");
+        }catch(SQLException sqlE){
+            System.out.println("error al actualizar + sqlE");
+        }
+    }
      public Destino buscarDestino (int id) {      
         DestinoData dd = new DestinoData(conexion);         
         return dd.buscarDestino(id);

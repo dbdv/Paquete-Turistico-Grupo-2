@@ -57,6 +57,7 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
         jcMenu = new javax.swing.JComboBox<>();
         jcbActivo = new javax.swing.JCheckBox();
         jtPrecio = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -94,6 +95,8 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
 
         jcMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Menú..." }));
 
+        jLabel6.setText("(Si desmarca la casilla el menú sera borrado)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,12 +123,14 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(157, 157, 157)
-                                .addComponent(jcbActivo))
+                                .addComponent(jcbActivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(155, 155, 155)
                                 .addComponent(jtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(jbLimpiar)
@@ -153,7 +158,8 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jcbActivo))
+                    .addComponent(jcbActivo)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
@@ -184,8 +190,11 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
         //Alojamiento alojamiento = new Alojamiento();
         Menu menu = new Menu();
         int index = jcMenu.getSelectedIndex();
-        if(!jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")){
+        if(jcAloj.getSelectedIndex() == 0 || jcMenu.getSelectedIndex()== 0 || jtPrecio.getText().isEmpty() || !jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")){
+            if(!jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un valor numérico para el precio.");
+            }
+            JOptionPane.showMessageDialog(this, "Debe completar los campos.");
         }else{
             menu = md.obtenerMenu(jcMenu.getSelectedItem().toString());
             //alojamiento = ad.obtenerAlojamiento(jcAloj.getSelectedItem().toString()); 
@@ -229,6 +238,7 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JComboBox<String> jcAloj;
