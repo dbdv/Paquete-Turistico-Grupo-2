@@ -131,6 +131,11 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         jLabel8.setText("Desde:");
 
         jDateDesde.setMinSelectableDate(date);
+        jDateDesde.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateDesdePropertyChange(evt);
+            }
+        });
 
         jLabel9.setText("Hasta:");
 
@@ -345,7 +350,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             a = ad.obtenerAlojamiento(jcbAlojamiento.getSelectedItem().toString());
             t = td.obtenerTransporte(jcbTransporte.getSelectedItem().toString());
             m = md.obtenerMenu(jcbMenu.getSelectedItem().toString());
-            cp = jcbCantPersonas.getSelectedIndex();
+            cp = Integer.parseInt(jcbCantPersonas.getSelectedItem().toString());
             c = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
             LocalDate FD = new java.sql.Date(jDateDesde.getDate().getTime()).toLocalDate();
             LocalDate FH = new java.sql.Date(jDateHasta.getDate().getTime()).toLocalDate();
@@ -462,6 +467,11 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         jcbCliente.setSelectedIndex(0);
     }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jDateDesdePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateDesdePropertyChange
+        // TODO add your handling code here:
+        jDateHasta.setMinSelectableDate(jDateDesde.getDate());
+    }//GEN-LAST:event_jDateDesdePropertyChange
     
     private void cargarDestinos(){
         
