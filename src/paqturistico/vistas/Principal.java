@@ -137,6 +137,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu4.add(jmAgregarMenu);
 
         jmActualizarMenu.setText("Actualizar o borrar Menú");
+        jmActualizarMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmActualizarMenuActionPerformed(evt);
+            }
+        });
         jMenu4.add(jmActualizarMenu);
 
         jMenuBar1.add(jMenu4);
@@ -313,6 +318,18 @@ public class Principal extends javax.swing.JFrame {
         escritorio.add(vam);
         escritorio.moveToFront(vam);
     }//GEN-LAST:event_jmAgregarMenuActionPerformed
+
+    private void jmActualizarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmActualizarMenuActionPerformed
+        // TODO add your handling code here:
+        VistaActualizarMenu vam = new VistaActualizarMenu();
+        vam.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        escritorio.add(vam);
+        escritorio.moveToFront(vam);
+    }//GEN-LAST:event_jmActualizarMenuActionPerformed
 
     /**
      * @param args the command line arguments

@@ -64,7 +64,26 @@ public class MenuData {
             System.out.println("Error al insertar menu\n" + ex);
         }
     }
+    public void actualizarMenu(Menu menu) {
+        String sql = "UPDATE menu SET precio = ?, activo = ? WHERE idMenu = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, menu.getPrecio());
+            ps.setBoolean(2, menu.isActivo());
+            
+            ps.setInt(3, menu.getIdMenu());
+            
 
+            ps.executeUpdate();
+            ps.close();
+            
+            JOptionPane.showMessageDialog(null, "Menú actualizado exitosamente.");
+        }catch(SQLException sqlE){
+            System.out.println("error al actualizar + sqlE");
+        }
+    }
+    
     public void borrarMenu(int id) {
         String sql = "UPDATE menu SET activo = 0 WHERE idMenu = ?";
 
@@ -119,7 +138,7 @@ public class MenuData {
         return m;
     }
 
-    public Alojamiento buscarAlojamiento(int id) {
+    private Alojamiento buscarAlojamiento(int id) {
         AlojamientoData ad = new AlojamientoData(conexion);
         return ad.buscarAlojamiento(id);
 
@@ -184,4 +203,5 @@ public class MenuData {
         
         return m;
       }
+      
 }
