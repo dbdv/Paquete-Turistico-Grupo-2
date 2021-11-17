@@ -41,7 +41,7 @@ public class PaqueteData {
     
     public void guardarPaquete(Paquete paq) {
         String sql = "INSERT INTO paquete(idCliente, idAlojamiento, idMenu, fechaDesde, fechaHasta, idTransporte, precioFinal, cantidadPersonas, activo) VALUES (?,?,?,?,?,?,?,?,?)";
-
+        
         try {
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {  //Prepara la sentencia para SQL
                 ps.setInt(1, paq.getIdCliente().getIdCliente());
@@ -102,7 +102,7 @@ public class PaqueteData {
         
         try{
             
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);            
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
@@ -135,6 +135,58 @@ public class PaqueteData {
         
         return paquetes;
     }
+    public List<Paquete> obtenerPaquetesPorCliente(Cliente c){
+        
+        List<Paquete> paquetes = new ArrayList<>();
+        Paquete paquete;
+        
+        Cliente cliente=new Cliente();
+        Alojamiento alojamiento=new Alojamiento();
+        Menu menu = new Menu();
+        Transporte trans = new Transporte();
+        
+        String sql = "SELECT * FROM paquete WHERE activo = 1 AND idCliente= ?;";
+        //SELECT alojamiento.* FROM alojamiento, destino WHERE destino.nombre = ? AND destino.idDestino = alojamiento.idDestino AND alojamiento.activo = 1;
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            
+            ps.setInt(1, c.getIdCliente());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                paquete = new Paquete();
+                cliente = buscarCliente(rs.getInt("idCliente"));
+                alojamiento = buscarAlojamiento(rs.getInt("idAlojamiento"));
+                menu = buscarMenu(rs.getInt("idMenu"));
+                trans = buscarTransporte(rs.getInt("idTransporte"));
+                paquete.setIdPaquete(rs.getInt("idPaquete"));
+                paquete.setIdCliente(cliente);
+                paquete.setIdAlojamiento(alojamiento);
+                paquete.setIdMenu(menu);
+                paquete.setFechaDesde(rs.getDate("fechaDesde").toLocalDate());
+                paquete.setFechaHasta(rs.getDate("fechaHasta").toLocalDate());
+                paquete.setIdTransporte(trans);
+                paquete.setPrecioFinal(rs.getInt("precioFinal"));
+                paquete.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                paquete.setActivo(true);
+                
+                
+                
+                
+                paquetes.add(paquete);
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al buscar paquete" + sqlE);
+        }
+        
+        return paquetes;
+    }
+    
     public Alojamiento buscarAlojamiento(int id) {        
         AlojamientoData dd = new AlojamientoData(conexion);
         return dd.buscarAlojamiento(id);   

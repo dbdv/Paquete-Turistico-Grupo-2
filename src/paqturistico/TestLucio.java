@@ -44,8 +44,9 @@ public class TestLucio {
             MenuData md = new MenuData(con);
             TransporteData td = new TransporteData(con);
             PaqueteData pd = new PaqueteData(con);           
-            
-            
+            Cliente c = new Cliente (12, "Lucio Martín Di Sanzo", 42994310, "luciodisanzo@gmail.com" , true);
+            System.out.println(pd.obtenerPaquetesPorCliente(c));
+            //System.out.println(pd.obtenerPaquetes());
             
             
         } catch (ClassNotFoundException ex) {

@@ -51,6 +51,7 @@ public class Principal extends javax.swing.JFrame {
         jmActualizarAlojamiento = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -197,6 +198,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(jMenuItem1);
+
+        jMenuItem2.setText("Listado de Paquetes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem2);
 
         jMenuBar1.add(jMenu6);
 
@@ -374,6 +383,18 @@ public class Principal extends javax.swing.JFrame {
         escritorio.moveToFront(vam);
     }//GEN-LAST:event_jmActualizarTransporteActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        VistaListadoPaquetes vam = new VistaListadoPaquetes();
+        vam.setVisible(true);
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        escritorio.add(vam);
+        escritorio.moveToFront(vam);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -420,6 +441,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jmActualizarAlojamiento;
     private javax.swing.JMenuItem jmActualizarCliente;
     private javax.swing.JMenuItem jmActualizarMenu;
