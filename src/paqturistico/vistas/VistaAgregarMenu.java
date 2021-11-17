@@ -5,6 +5,7 @@
  */
 package paqturistico.vistas;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import paqturistico.control.AlojamientoData;
@@ -51,11 +52,11 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jcomboAlojamiento = new javax.swing.JComboBox<>();
-        jtTipo = new javax.swing.JTextField();
         jtPrecio = new javax.swing.JTextField();
         jcbActivo = new javax.swing.JCheckBox();
         jbLimpiar = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
+        jcTipo = new javax.swing.JComboBox<>();
 
         setClosable(true);
 
@@ -92,6 +93,8 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
             }
         });
 
+        jcTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un menu", "Sin pension", "Solo desayuno", "Media pension", "Pension completa" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,16 +114,17 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel5))
                                 .addGap(84, 84, 84)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcomboAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jcomboAlojamiento, 0, 250, Short.MAX_VALUE)
                                     .addComponent(jtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcbActivo)))
+                                    .addComponent(jcbActivo)
+                                    .addComponent(jcTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(67, 67, 67))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbLimpiar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbGuardar)))))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +138,7 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -143,7 +147,7 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jcbActivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLimpiar)
                     .addComponent(jbGuardar))
@@ -156,7 +160,7 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         // TODO add your handling code here:
         jcbActivo.setSelected(false);
-        jtTipo.setText("");
+        jcTipo.setSelectedIndex(0);
         jtPrecio.setText("");        
         jcomboAlojamiento.setSelectedIndex(0);
     }//GEN-LAST:event_jbLimpiarActionPerformed
@@ -164,21 +168,30 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:        
         Menu menu = new Menu();
-        if(jcomboAlojamiento.getSelectedIndex() == 0 || jtTipo.getText().isEmpty() || jtPrecio.getText().isEmpty() || !jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+        List<Menu> menus = new ArrayList<>();
+        
+        if(jcomboAlojamiento.getSelectedIndex() == 0 || jcTipo.getSelectedIndex()==0 || jtPrecio.getText().isEmpty() || !jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
             if(!jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un valor numérico para el precio.");
             }
             JOptionPane.showMessageDialog(this, "No ha seleccionado todos los datos necesarios");
         }else{    
             Alojamiento alojamiento = ad.obtenerAlojamiento(jcomboAlojamiento.getSelectedItem().toString());
-
+           
             menu.setIdAlojamiento(alojamiento);
             menu.setActivo(jcbActivo.isSelected());
             menu.setPrecio(Integer.parseInt(jtPrecio.getText()));
-            menu.setTipo(jtTipo.getText());
-
-            md.guardarMenu(menu);
-        }
+            menu.setTipo(jcTipo.getSelectedItem().toString());
+          
+         
+             menus= md.obtenerMenuPorAlojamiento(alojamiento.getNombre());
+             
+              if(menus.contains(menu)){
+            
+                 JOptionPane.showMessageDialog(this, "El alojamiento ya cuenta con ese menu");
+            }else{
+             md.guardarMenu(menu);
+        }}
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtPrecioFocusLost
@@ -207,9 +220,9 @@ public class VistaAgregarMenu extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbLimpiar;
+    private javax.swing.JComboBox<String> jcTipo;
     private javax.swing.JCheckBox jcbActivo;
     private javax.swing.JComboBox<String> jcomboAlojamiento;
     private javax.swing.JTextField jtPrecio;
-    private javax.swing.JTextField jtTipo;
     // End of variables declaration//GEN-END:variables
 }

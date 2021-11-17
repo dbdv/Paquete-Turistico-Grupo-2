@@ -5,6 +5,8 @@
  */
 package paqturistico.modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author daniel
@@ -73,6 +75,32 @@ public class Menu {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.tipo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Menu other = (Menu) obj;
+        if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
+        return true;
+    }
+    
 
     @Override
     public String toString() {
