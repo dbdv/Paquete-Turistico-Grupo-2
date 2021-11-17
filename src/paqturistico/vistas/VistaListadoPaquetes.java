@@ -8,6 +8,7 @@ package paqturistico.vistas;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import paqturistico.control.ClienteData;
 import paqturistico.control.PaqueteData;
@@ -63,6 +64,7 @@ public class VistaListadoPaquetes extends javax.swing.JInternalFrame {
         tabla = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         cbClientes = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -90,10 +92,21 @@ public class VistaListadoPaquetes extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Dar de baja");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(297, 297, 297))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -103,12 +116,11 @@ public class VistaListadoPaquetes extends javax.swing.JInternalFrame {
                         .addComponent(cbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(368, 368, 368)
+                        .addComponent(jButton1)))
                 .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(297, 297, 297))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,8 +132,10 @@ public class VistaListadoPaquetes extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(cbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jButton1)
+                .addGap(52, 52, 52))
         );
 
         pack();
@@ -131,6 +145,11 @@ public class VistaListadoPaquetes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         cargarTabla();
     }//GEN-LAST:event_cbClientesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        darBaja();
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void cargarClientes(){        
         for(Cliente c: listaClientes){
             cbClientes.addItem(c);
@@ -171,8 +190,20 @@ public class VistaListadoPaquetes extends javax.swing.JInternalFrame {
         }
     }
     
+   private void darBaja(){
+       int indexR = tabla.getSelectedRow();
+       
+       if(indexR != -1){
+           pd.borrarPaquete(Integer.parseInt(tabla.getValueAt(indexR, 0).toString()));
+           cargarTabla();
+       }else{
+           JOptionPane.showMessageDialog(this, "No ha seleccionado ningún paquete.");
+       }
+   }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Cliente> cbClientes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -143,7 +143,7 @@ public class ClienteData {
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()){
-              cliente.setActivo(true);
+              cliente.setActivo(rs.getBoolean("activo"));
               cliente.setDni(rs.getInt("dni"));
               cliente.setIdCliente(rs.getInt("idCliente"));
               cliente.setMail(rs.getString("mail"));

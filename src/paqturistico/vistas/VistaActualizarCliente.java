@@ -64,6 +64,11 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
 
         jcbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--" }));
+        jcbCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbClienteItemStateChanged(evt);
+            }
+        });
         jcbCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbClienteActionPerformed(evt);
@@ -175,24 +180,25 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
 
     private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
         // TODO add your handling code here:
-        Cliente cliente;
+       /* Cliente cliente;
         cliente = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
         
         jtNombre.setText(cliente.getNombre());
         jtDni.setText(Integer.toString(cliente.getDni()));
         jtMail.setText(cliente.getMail());
         jtId.setText(Integer.toString(cliente.getIdCliente()));
-        jcActivo.setSelected(cliente.isActivo());
+        jcActivo.setSelected(cliente.isActivo());*/
     }//GEN-LAST:event_jcbClienteActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
         // TODO add your handling code here:
-        Cliente cliente = new Cliente();
+        Cliente cliente;
         int index = jcbCliente.getSelectedIndex();
         
         if (index == 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar algún cliente");
         } else {
+            cliente = new Cliente();
 
             cliente.setActivo(jcActivo.isSelected());
             cliente.setDni(Integer.parseInt(jtDni.getText()));
@@ -209,6 +215,14 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
                 index++;
             }
             jcbCliente.setSelectedIndex(index);
+            
+            jtNombre.setText(cliente.getNombre());
+            jtDni.setText(Integer.toString(cliente.getDni()));
+            jtMail.setText(cliente.getMail());
+            jtId.setText(Integer.toString(cliente.getIdCliente()));
+            jcActivo.setSelected(cliente.isActivo());
+            
+           
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
@@ -219,8 +233,32 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
         jtId.setText("");
         jtMail.setText("");
         jtNombre.setText("");
+        jcActivo.setSelected(false);
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void jcbClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbClienteItemStateChanged
+        // TODO add your handling code here:
+        
+        Cliente cliente;
+        
+        if (jcbCliente.getSelectedIndex() == 0) {
+            jtDni.setText("");
+            jtId.setText("");
+            jtMail.setText("");
+            jtNombre.setText("");
+            jcActivo.setSelected(false);
+        } else {
+
+            cliente = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
+
+            jtNombre.setText(cliente.getNombre());
+            jtDni.setText(Integer.toString(cliente.getDni()));
+            jtMail.setText(cliente.getMail());
+            jtId.setText(Integer.toString(cliente.getIdCliente()));
+            jcActivo.setSelected(cliente.isActivo());
+        }
+    }//GEN-LAST:event_jcbClienteItemStateChanged
 
     private void llenarCampos(){
         
