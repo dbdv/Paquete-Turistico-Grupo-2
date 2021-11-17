@@ -5,6 +5,7 @@
  */
 package paqturistico.vistas;
 
+import javax.swing.JOptionPane;
 import paqturistico.control.DestinoData;
 import paqturistico.modelo.Conexion;
 import paqturistico.modelo.Destino;
@@ -144,11 +145,15 @@ public class VistaAgregarDestino extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Destino destino = new Destino();
         
-        destino.setActivo(cbActivo.isSelected());
-        destino.setNombre(jtNombre.getText());
-        destino.setPais(jtPais.getText());
-        
-        dd.guardarDestino(destino);
+        if(jtNombre.getText().isEmpty() || jtPais.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No ha completado todos los campos.");
+        } else {
+            destino.setActivo(cbActivo.isSelected());
+            destino.setNombre(jtNombre.getText());
+            destino.setPais(jtPais.getText());
+
+            dd.guardarDestino(destino);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 

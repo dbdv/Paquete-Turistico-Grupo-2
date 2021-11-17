@@ -79,6 +79,12 @@ public class VistaActualizarTransporte extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Activo:");
 
+        jtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtPrecioFocusLost(evt);
+            }
+        });
+
         jbActualizar.setText("Actualizar");
         jbActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +222,10 @@ public class VistaActualizarTransporte extends javax.swing.JInternalFrame {
           jtPrecio.setText(Integer.toString(transporte.getPrecio()));}
             
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtPrecioFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtPrecioFocusLost
 
 private void llenarDestinos(){
         List<Destino> destinos = dd.obtenerDestinosActivos();

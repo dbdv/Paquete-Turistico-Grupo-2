@@ -197,7 +197,12 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
         
         if (index == 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar algún cliente");
-        } else {
+            
+        } else if(jtNombre.getText().isEmpty() || jtDni.getText().isEmpty() || jtMail.getText().isEmpty()) {
+            
+            JOptionPane.showMessageDialog(this, "No ha completado todos los campos.");
+            
+        } else{
             cliente = new Cliente();
 
             cliente.setActivo(jcActivo.isSelected());

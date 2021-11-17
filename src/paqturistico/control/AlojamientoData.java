@@ -108,7 +108,7 @@ public class AlojamientoData {
         
         Alojamiento alojamiento = new Alojamiento();        
         Destino destino;
-        String sql = "SELECT * FROM alojamiento WHERE nombre=? and activo=true;";
+        String sql = "SELECT * FROM alojamiento WHERE nombre=?;";
         PreparedStatement ps;
         
         try{
@@ -145,6 +145,49 @@ public class AlojamientoData {
         }
         
         return alojamiento;        
+    }
+    
+    public List<Alojamiento> obtenerAlojamientos(){
+        
+        Alojamiento alojamiento;
+        List<Alojamiento> alojamientos = new ArrayList<>();
+        Destino destino;
+        String sql = "SELECT * FROM alojamiento;";
+        PreparedStatement ps;
+        
+        try{
+             ps = con.prepareStatement(sql);
+            
+            
+            ResultSet rs = ps.executeQuery();
+            
+            
+            
+            while(rs.next()){                
+                
+                alojamiento = new Alojamiento();
+                destino = buscarDestino(rs.getInt("idDestino"));
+                
+                alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
+                alojamiento.setNombre(rs.getString("nombre"));
+                alojamiento.setTipo(rs.getString("tipo"));
+                alojamiento.setActivo(rs.getBoolean("activo"));
+                alojamiento.setPrecio(rs.getInt("precio"));
+                alojamiento.setIdDestino(destino);
+                
+                alojamientos.add(alojamiento);
+                
+                
+            }
+            
+            rs.close();
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("error al obtener alojamiento" + sqlE);
+        }
+        
+        return alojamientos;        
     }
     
     public List<Alojamiento> obtenerAlojamientosActivos(){

@@ -6,6 +6,7 @@
 package paqturistico.vistas;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import paqturistico.control.AlojamientoData;
 import paqturistico.control.DestinoData;
 import paqturistico.modelo.Alojamiento;
@@ -182,15 +183,27 @@ public class VistaAgregarAlojamiento extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         Alojamiento alojamiento = new Alojamiento();
-        Destino destino = dd.obtenerDestino(jcbDestino.getSelectedItem().toString());
+        Destino destino;
         
-        alojamiento.setActivo(cbActivo.isSelected());
-        alojamiento.setIdDestino(destino);
-        alojamiento.setNombre(jtNombre.getText());
-        alojamiento.setPrecio(Integer.parseInt(jtPrecio.getText()));
-        alojamiento.setTipo(jtTipo.getText());
-        
-        ad.guardarAlojamiento(alojamiento);
+        if(jcbDestino.getSelectedIndex() == 0 || jtNombre.getText().isEmpty() || jtPrecio.getText().isEmpty() || jtTipo.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(this, "No ha completado todos los datos.");
+            
+        }else if(!jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")){
+            
+            JOptionPane.showMessageDialog(this, "El campo precio solo puede contener valores numéricos.");
+            
+        }else{
+            destino = dd.obtenerDestino(jcbDestino.getSelectedItem().toString());
+
+            alojamiento.setActivo(cbActivo.isSelected());
+            alojamiento.setIdDestino(destino);
+            alojamiento.setNombre(jtNombre.getText());
+            alojamiento.setPrecio(Integer.parseInt(jtPrecio.getText()));
+            alojamiento.setTipo(jtTipo.getText());
+
+            ad.guardarAlojamiento(alojamiento);
+        }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 

@@ -201,9 +201,15 @@ public class VistaActualizarAlojamiento extends javax.swing.JInternalFrame {
         Destino destino;
         int index = jcbAlojamiento.getSelectedIndex();
         
-        if(index == 0){
-            JOptionPane.showMessageDialog(this, "Debe seleccionar algún alojamiento.");
-        } else {
+        if(index == 0 || jtNombre.getText().isEmpty() || jtPrecio.getText().isEmpty() || jtTipo.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(this, "No ha completado todos los datos.");
+            
+        }else if(!jtPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")){
+            
+            JOptionPane.showMessageDialog(this, "El campo precio solo puede contener valores numéricos.");
+            
+        }else {
             alojamiento = ad.obtenerAlojamiento(jcbAlojamiento.getSelectedItem().toString());
             destino = dd.obtenerDestino(jcbDestino.getSelectedItem().toString());
 
@@ -232,9 +238,9 @@ public class VistaActualizarAlojamiento extends javax.swing.JInternalFrame {
     private void jcbAlojamientoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlojamientoItemStateChanged
         // TODO add your handling code here:
         Alojamiento alojamiento;
-        int i = 0;
+        int index = jcbAlojamiento.getSelectedIndex();
         
-        if(jcbAlojamiento.getSelectedIndex() == 0){
+        if(index == 0){
             
             
             cbActivo.setSelected(false);
@@ -253,15 +259,22 @@ public class VistaActualizarAlojamiento extends javax.swing.JInternalFrame {
             jtTipo.setText(alojamiento.getTipo());
             jtNombre.setText(alojamiento.getNombre());
             
-            while(alojamiento.getIdDestino().getNombre().compareTo(jcbDestino.getItemAt(i)) != 0){
-                i++;
+            index = 0;
+            
+            while(alojamiento.getIdDestino().getNombre().compareTo(jcbDestino.getItemAt(index)) != 0 && index < jcbDestino.getItemCount()){
+                index++;
             }
-            jcbDestino.setSelectedIndex(i);
+            
+            if(index < jcbDestino.getItemCount()){
+                jcbDestino.setSelectedIndex(index);
+            }else{
+                jcbDestino.setSelectedIndex(0);
+            }
         }
     }//GEN-LAST:event_jcbAlojamientoItemStateChanged
 
     private void llenarAlojamientos(){
-        List<Alojamiento> alojamientos = ad.obtenerAlojamientosActivos();
+        List<Alojamiento> alojamientos = ad.obtenerAlojamientos();
         
         for(Alojamiento a: alojamientos){
             jcbAlojamiento.addItem(a.getNombre());
@@ -269,7 +282,7 @@ public class VistaActualizarAlojamiento extends javax.swing.JInternalFrame {
     }
     
     private void llenarDestinos(){
-        List<Destino> destinos = dd.obtenerDestinosActivos();
+        List<Destino> destinos = dd.obtenerDestinos();
         
         if (!destinos.isEmpty()) {
             for (Destino d : destinos) {

@@ -170,8 +170,15 @@ public class VistaActualizarDestino extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        
         if (jcbNombre.getSelectedIndex() == 0) {
+            
             JOptionPane.showMessageDialog(this, "Debe seleccionar algún destino.");
+            
+        } else if(jtNombre.getText().isEmpty() || jtPais.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(this, "No ha completado todos los campos.");
+            
         } else {
        
             Destino destino = new Destino();

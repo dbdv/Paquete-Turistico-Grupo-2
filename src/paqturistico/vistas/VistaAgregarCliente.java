@@ -152,15 +152,20 @@ public class VistaAgregarCliente extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
-        String nombre=jtNombre.getText();        
-        int dni=Integer.parseInt(jtDni.getText());
-        String mail=jtMail.getText();
-        boolean activo = jcbActivo.isEnabled();
-        Cliente cliente = new Cliente (nombre, dni, mail, activo);
-        cd.guardarCliente(cliente);
-        limpiar();
-        JOptionPane.showMessageDialog(this, "Cliente agregado, ID del cliente: "+cliente.getIdCliente());
         
+        if (jtNombre.getText().isEmpty() || jtDni.getText().isEmpty() || jtMail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No ha completado todos los campos.");
+        } else {
+
+            String nombre = jtNombre.getText();
+            int dni = Integer.parseInt(jtDni.getText());
+            String mail = jtMail.getText();
+            boolean activo = jcbActivo.isEnabled();
+            Cliente cliente = new Cliente(nombre, dni, mail, activo);
+            cd.guardarCliente(cliente);
+            limpiar();
+            JOptionPane.showMessageDialog(this, "Cliente agregado, ID del cliente: " + cliente.getIdCliente());
+        }
         //jtId.setText(cliente.getIdCliente()+"");
     }//GEN-LAST:event_jbGuardarActionPerformed
 
