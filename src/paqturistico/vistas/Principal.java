@@ -34,11 +34,9 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jmAgregarCliente = new javax.swing.JMenuItem();
-        jmBorrarCliente = new javax.swing.JMenuItem();
         jmActualizarCliente = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         miAgregarDestino = new javax.swing.JMenuItem();
-        miEliminarDestino = new javax.swing.JMenuItem();
         miActualizarDestino = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jmAgregarMenu = new javax.swing.JMenuItem();
@@ -83,14 +81,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu2.add(jmAgregarCliente);
 
-        jmBorrarCliente.setText("Borrar cliente");
-        jmBorrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmBorrarClienteActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jmBorrarCliente);
-
         jmActualizarCliente.setText("Actualizar cliente");
         jmActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,14 +100,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(miAgregarDestino);
-
-        miEliminarDestino.setText("Eliminar destino");
-        miEliminarDestino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miEliminarDestinoActionPerformed(evt);
-            }
-        });
-        jMenu3.add(miEliminarDestino);
 
         miActualizarDestino.setText("Actualizar destino");
         miActualizarDestino.addActionListener(new java.awt.event.ActionListener() {
@@ -241,19 +223,6 @@ public class Principal extends javax.swing.JFrame {
         escritorio.moveToFront(vc);
     }//GEN-LAST:event_jmAgregarClienteActionPerformed
 
-    private void jmBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBorrarClienteActionPerformed
-        // TODO add your handling code here:
-        escritorio.removeAll();
-        escritorio.repaint();
-        
-        VistaBorrarCliente bc = new VistaBorrarCliente();
-        bc.setVisible(true);
-        escritorio.add(bc);
-        escritorio.moveToFront(bc);
-        
-        
-    }//GEN-LAST:event_jmBorrarClienteActionPerformed
-
     private void jmActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmActualizarClienteActionPerformed
         // TODO add your handling code here:
         VistaActualizarCliente vac = new VistaActualizarCliente();
@@ -264,17 +233,6 @@ public class Principal extends javax.swing.JFrame {
         escritorio.add(vac);
         escritorio.moveToFront(vac);
     }//GEN-LAST:event_jmActualizarClienteActionPerformed
-
-    private void miEliminarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEliminarDestinoActionPerformed
-        // TODO add your handling code here:
-        VistaEliminarDestino vEliminarDestino = new VistaEliminarDestino();
-        vEliminarDestino.setVisible(true);
-        
-        escritorio.removeAll();
-        escritorio.repaint();
-        escritorio.add(vEliminarDestino);
-        escritorio.moveToFront(vEliminarDestino);
-    }//GEN-LAST:event_miEliminarDestinoActionPerformed
 
     private void miAgregarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAgregarDestinoActionPerformed
         // TODO add your handling code here:
@@ -450,9 +408,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmAgregarCliente;
     private javax.swing.JMenuItem jmAgregarMenu;
     private javax.swing.JMenuItem jmAgregarTransporte;
-    private javax.swing.JMenuItem jmBorrarCliente;
     private javax.swing.JMenuItem miActualizarDestino;
     private javax.swing.JMenuItem miAgregarDestino;
-    private javax.swing.JMenuItem miEliminarDestino;
     // End of variables declaration//GEN-END:variables
 }
