@@ -131,6 +131,32 @@ public class ClienteData {
         return c;
     }
     
+    public Cliente buscarClienteActivoPorNombre(String nombre){
+        
+        Cliente cliente = new Cliente();
+        String sql = "SELECT * FROM cliente WHERE cliente.nombre = ? and activo = true";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+              cliente.setActivo(rs.getBoolean("activo"));
+              cliente.setDni(rs.getInt("dni"));
+              cliente.setIdCliente(rs.getInt("idCliente"));
+              cliente.setMail(rs.getString("mail"));
+              cliente.setNombre(rs.getString("nombre"));
+            }
+            
+        }catch(SQLException sqlE){
+            System.out.println("No se pudo buscar el cliente\n"+sqlE);
+        }
+        
+        return cliente;
+    }
+    
     public Cliente buscarClientePorNombre(String nombre){
         
         Cliente cliente = new Cliente();

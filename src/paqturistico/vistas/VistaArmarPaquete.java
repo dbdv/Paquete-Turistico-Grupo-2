@@ -187,6 +187,8 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
 
         jcbCantPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
+        jtCostoTotal.setEditable(false);
+
         jcbCliente.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbClienteItemStateChanged(evt);
@@ -432,7 +434,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             t = td.obtenerTransporte(jcbTransporte.getSelectedItem().toString());
             m = md.obtenerMenu(jcbMenu.getSelectedItem().toString());
             cp = Integer.parseInt(jcbCantPersonas.getSelectedItem().toString());
-            c = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
+            c = cd.buscarClienteActivoPorNombre(jcbCliente.getSelectedItem().toString());
             LocalDate FD = new java.sql.Date(jDateDesde.getDate().getTime()).toLocalDate();
             LocalDate FH = new java.sql.Date(jDateHasta.getDate().getTime()).toLocalDate();
 
@@ -455,7 +457,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             jtDni.setText("");
             jtMail.setText("");
         }else{
-            cliente = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
+            cliente = cd.buscarClienteActivoPorNombre(jcbCliente.getSelectedItem().toString());
             
             jtDni.setText(""+cliente.getDni());
             jtId.setText(""+cliente.getIdCliente());
