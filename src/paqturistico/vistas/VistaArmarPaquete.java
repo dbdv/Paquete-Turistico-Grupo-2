@@ -431,7 +431,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
             a = ad.obtenerAlojamiento(jcbAlojamiento.getSelectedItem().toString());
             t = td.obtenerTransporte(jcbTransporte.getSelectedItem().toString());
             m = md.obtenerMenu(jcbMenu.getSelectedItem().toString());
-            cp = jcbCantPersonas.getSelectedIndex();
+            cp = Integer.parseInt(jcbCantPersonas.getSelectedItem().toString());
             c = cd.buscarClientePorNombre(jcbCliente.getSelectedItem().toString());
             LocalDate FD = new java.sql.Date(jDateDesde.getDate().getTime()).toLocalDate();
             LocalDate FH = new java.sql.Date(jDateHasta.getDate().getTime()).toLocalDate();
