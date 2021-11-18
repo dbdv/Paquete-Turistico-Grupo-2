@@ -217,7 +217,7 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
             //alojamiento = ad.obtenerAlojamiento(jcAloj.getSelectedItem().toString()); 
             
             menu.setPrecio(Integer.parseInt(jtPrecio.getText()));
-            menu.setActivo(jcbActivo.isEnabled());            
+            menu.setActivo(jcbActivo.isSelected());            
             md.actualizarMenu(menu);           
         }
             

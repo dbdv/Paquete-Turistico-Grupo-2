@@ -63,6 +63,8 @@ public class VistaActualizarCliente extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
+        setClosable(true);
+
         jcbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--" }));
         jcbCliente.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {

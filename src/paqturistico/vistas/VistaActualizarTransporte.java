@@ -206,7 +206,7 @@ public class VistaActualizarTransporte extends javax.swing.JInternalFrame {
         }else{
             t = td.obtenerTransporte(jcomboTransporte.getSelectedItem().toString());
             t.setPrecio(Integer.parseInt(jtPrecio.getText()));
-            t.setActivo(jcbActivo.isEnabled());            
+            t.setActivo(jcbActivo.isSelected());            
             
             td.actualizarTransporte(t);
                        

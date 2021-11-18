@@ -44,8 +44,11 @@ public class TestLucio {
             MenuData md = new MenuData(con);
             TransporteData td = new TransporteData(con);
             PaqueteData pd = new PaqueteData(con);           
-            Cliente c = new Cliente (12, "Lucio Martín Di Sanzo", 42994310, "luciodisanzo@gmail.com" , true);
-            System.out.println(pd.obtenerPaquetesPorCliente(c));
+            /*Cliente c = new Cliente (12, "Lucio Martín Di Sanzo", 42994310, "luciodisanzo@gmail.com" , true);
+            System.out.println(pd.obtenerPaquetesPorCliente(c));*/
+            Destino d1 = new Destino(11, "Villa Carlos Paz", "Argentina", true);
+            Transporte t1 = new Transporte(12, "Micro", 7000, d1, false);
+            td.actualizarTransporte(t1);
             //System.out.println(pd.obtenerPaquetes());
             
             
