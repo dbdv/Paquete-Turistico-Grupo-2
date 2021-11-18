@@ -351,7 +351,7 @@ public class VistaArmarPaquete extends javax.swing.JInternalFrame {
         int cp;
     
           if(jcbAlojamiento.getSelectedIndex() == 0 || jcbCliente.getSelectedIndex()== 0 || jcbDestino.getSelectedIndex() == 0 || jcbMenu.getSelectedIndex() == 0 ||
-     jcbTransporte.getSelectedIndex() == 0) {
+     jcbTransporte.getSelectedIndex() == 0 || jDateDesde.getDate()==null || jDateHasta.getDate()==null) {
 
             JOptionPane.showMessageDialog(this, "No ha seleccionado todos los datos necesarios");
         } else {
