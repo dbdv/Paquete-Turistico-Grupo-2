@@ -98,7 +98,7 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
 
         jLabel6.setText("(Si desmarca la casilla el menú sera borrado)");
 
-        jButton1.setText("Obtener precio");
+        jButton1.setText("Obtener datos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -226,12 +226,14 @@ public class VistaActualizarMenu extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         Menu menu;
-        if(jcMenu.getSelectedIndex() != 0 && jcMenu.getComponentCount() > 1){
-        menu= md.obtenerMenu( jcMenu.getSelectedItem().toString());
-        
-          jtPrecio.setText(Integer.toString(menu.getPrecio()));}
-            
+        Menu menu;
+        if (jcMenu.getSelectedIndex() != 0 && jcMenu.getComponentCount() > 1) {
+            menu = md.obtenerMenu(jcMenu.getSelectedItem().toString());
+
+            jtPrecio.setText(Integer.toString(menu.getPrecio()));
+            jcbActivo.setSelected(menu.isActivo());
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
     private void llenarAloj(){
         List<Alojamiento> alojamientos = ad.obtenerAlojamientosActivos();

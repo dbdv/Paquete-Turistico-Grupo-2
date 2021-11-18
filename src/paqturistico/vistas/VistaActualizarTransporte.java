@@ -101,7 +101,7 @@ public class VistaActualizarTransporte extends javax.swing.JInternalFrame {
 
         jLabel6.setText("(Si desmarca la casilla el transporte sera borrado)");
 
-        jButton1.setText("Obtener precio");
+        jButton1.setText("Obtener datos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -216,11 +216,13 @@ public class VistaActualizarTransporte extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Transporte transporte;
-        if(jcomboTransporte.getSelectedIndex() != 0 && jcomboTransporte.getComponentCount() > 1){
-        transporte= td.obtenerTransporte( jcomboTransporte.getSelectedItem().toString());
-        
-          jtPrecio.setText(Integer.toString(transporte.getPrecio()));}
+        if (jcomboTransporte.getSelectedIndex() != 0 && jcomboTransporte.getComponentCount() > 1) {
+            transporte = td.obtenerTransporte(jcomboTransporte.getSelectedItem().toString());
             
+            jtPrecio.setText(Integer.toString(transporte.getPrecio()));
+            jcbActivo.setSelected(transporte.isActivo());
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtPrecioFocusLost
