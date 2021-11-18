@@ -73,9 +73,13 @@
                                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jcbDestino" min="-2" pref="296" max="-2" attributes="0"/>
-                                              <Component id="jcbAlojamiento" alignment="0" min="-2" pref="296" max="-2" attributes="0"/>
                                               <Component id="jcbTransporte" alignment="0" min="-2" pref="296" max="-2" attributes="0"/>
                                               <Component id="jcbMenu" alignment="0" min="-2" pref="296" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jcbAlojamiento" min="-2" pref="247" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jtAlojamiento" min="-2" pref="94" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -105,7 +109,7 @@
                       <Component id="jSeparator1" min="-2" pref="432" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="73" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -145,6 +149,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jcbAlojamiento" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtAlojamiento" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -156,7 +161,7 @@
                   <Component id="jcbMenu" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jcbCantPersonas" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -170,14 +175,14 @@
                   <Component id="jDateHasta" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbCalcular" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jtCostoTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbCrearPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -398,6 +403,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtMail">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtAlojamiento">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
