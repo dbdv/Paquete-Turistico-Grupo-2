@@ -144,6 +144,43 @@ public class TransporteData {
         }  
         return trans;
     }
+    
+    public List<Transporte> obtenerTodosTransportesPorDestino(String destino){
+        List<Transporte> trans = new ArrayList<>();
+        Transporte t;
+        Destino d;        
+        String sql ="SELECT transporte.* FROM transporte, destino WHERE destino.nombre= ? AND transporte.idDestino = destino.idDestino AND destino.activo = 1;";
+        
+        try{
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, destino);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                d = buscarDestino(rs.getInt("idDestino"));
+                
+                t = new Transporte();
+                
+                t.setIdTransporte(rs.getInt("idTransporte"));
+                t.setTipo(rs.getString("tipo"));
+                t.setPrecio(rs.getInt("precio"));
+                t.setIdDestino(d);
+                t.setActivo(rs.getBoolean("activo"));             
+               
+                trans.add(t);
+               
+            }
+            ps.close();
+            
+        }catch(SQLException sqlE){
+            System.out.println("error obteniendo transportes" + sqlE);
+        }  
+        return trans;
+    }
+    
     public void actualizarTransporte(Transporte t) {
         String sql = "UPDATE transporte SET precio = ?, activo = ? WHERE idTransporte = ?";
         

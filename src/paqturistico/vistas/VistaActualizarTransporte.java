@@ -243,7 +243,7 @@ private void llenarT(){
             jcomboTransporte.removeAllItems();
             jcomboTransporte.addItem("Seleccione un Transporte");
             
-            List<Transporte> transportes = td.obtenerTransportesPorDestino(jcomboDestino.getSelectedItem().toString());          
+            List<Transporte> transportes = td.obtenerTodosTransportesPorDestino(jcomboDestino.getSelectedItem().toString());          
 
             if (!transportes.isEmpty()) {
                 for (Transporte t : transportes) {
